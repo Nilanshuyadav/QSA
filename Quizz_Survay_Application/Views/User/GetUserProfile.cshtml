@@ -1,0 +1,22 @@
+﻿@model Quizz_Survay_Application.Models.RegisterModel
+@{
+    ViewBag.Title = "GetUserProfile";
+    Layout = null;
+}
+
+<img src="@Url.Content("~\\AppFiles\\Images\\60111.jpg")" alt="the pic is here">
+<h2 style="margin-top: 60px;">@Model.FirstName @Model.LastName</h2>
+<h6>@Model.UserName</h6>
+@{
+    if (!Model.Role)
+    {
+        <h6>User</h6>
+    }
+    else
+    {
+        <h6>Admin</h6>
+    }
+}
+
+@*
+    ~\\AppFiles\\Images\\testing_profile_Image.png*@

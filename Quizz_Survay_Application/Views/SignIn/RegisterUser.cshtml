@@ -1,0 +1,125 @@
+﻿@model Quizz_Survay_Application.Models.RegisterModel
+
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = null;
+}
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#otpcontainerregister").hide();
+        let SentOTP = "";
+
+        $("#btnregister").click(function () {
+            return verifyEmailregister();
+        });
+
+        $("#btnotpregister").click(function () {
+            return verifyOTPregister();
+        });
+
+        function verifyOTPregister() {
+            var EnteredOTP_ = $("#enteredotpregister").val();
+
+            $.ajax({
+                url: "/SignIn/Validate",
+                type: "GET",
+                data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase()},
+                success: function (data) {
+                    return true;
+                },
+                error: function (data) {
+                    alert("something happened, Plz try again...");
+                }
+            });
+
+            return false;
+        };
+
+        function verifyEmailregister() {
+
+            $.ajax({
+                url: "/SignIn/SendOTP",
+                type: "POST",
+                data: { email: $("#UserName").val() },
+                success: function () {
+                    $("#otpcontainerregister").show();
+                    $("#btnotpregister").removeAttr("disabled");
+                    $("#btnregister").attr("disabled", true);
+                },
+                error: function (error) {
+                    alert("SomeThing Happended, Plz Try Again");
+                }
+            });
+
+            return false;
+        };
+    });
+
+</script>
+
+
+
+
+
+<h2>RegisterUser</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="otpcontainerregister">
+            <div>
+                <label class="control-label col-md-2">Enter OTP : </label>
+                <div class="col-md-10">
+                    <input class="form-control" id="enteredotpregister" />
+                    <input type="submit" id="btnotpregister" value="verify" disabled class="btn btn-default btn-outline-primary btn-sm ms-3" style="margin-left: 5px;"/>
+                   
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
+                <input type="submit" value="Register" id="btnregister" class="btn btn-default btn-primary mt-4" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

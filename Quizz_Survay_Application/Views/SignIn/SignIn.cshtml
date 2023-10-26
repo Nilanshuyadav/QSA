@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.SignInModel>
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#otpcontainer").hide();
+
+        $("#btnemail").click(function () {
+            return VerifyEmail();
+        });
+
+        $("#btnotp").click(function () {
+            return VerifyOTP();
+        });
+
+        var currUser;
+
+        function VerifyOTP() {
+            var EnteredOTP_ = $("#enteredotp").val();
+
+            $.ajax({
+                url: "/SignIn/Validate",
+                type: "GET",
+                data: { EnteredOTP: EnteredOTP_, Email: $("#enteremail").val().toLowerCase() },
+                success: function (data) {
+                    if (data == 1) {
+                        if (!currUser.Role) {
+                            location.href = "@Url.Action("Index", "User")";
+                        }
+                        else {
+                            alert("Redirect to Admin DashBoard");
+                        }
+
+                    }
+                    else if (data == 2) {
+                        alert("not matched");
+                    }
+                },
+                error: function (data) {
+                    alert("something happened, Plz try again...");
+                }
+            });
+
+            return false;
+        };
+
+        function VerifyEmail() {
+            let EnteredEmail = $("#enteremail").val().toLowerCase();
+
+            var users = @Html.Raw(Json.Encode(Model));
+            var found = false;
+
+            $.each(users, function (index, item) {
+                alert(item.UserName);
+                if (item.UserName === EnteredEmail) {
+                    currUser = item;
+                    $.ajax({
+                        url: "/SignIn/SendOTP",
+                        type: "POST",
+                        data: { email: EnteredEmail },
+                        success: function () {
+                            $("#otpcontainer").show();
+                        },
+                        error: function (error) {
+                            alert("Something strange happended...PLz try again");
+                        }
+                    });
+
+                    found = true;
+                }
+            });
+
+            if (found == false) {
+                alert("not found");
+            }
+            return false;
+        }
+
+
+
+    });
+
+</script>
+
+
+
+
+
+@using (Html.BeginForm())
+{
+   
+
+    <div class="form-horizontal">
+        <div>
+            <div class="form-group">
+                <lablel class="control-label col-md-2"> Email : </lablel>
+                <div class="col-md-10">
+                    <input class="form-control" id="enteremail" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
+                    <input type="submit" id="btnemail" value="submit" class="btn btn-primary btn-default"/>
+                </div>
+            </div>
+        </div>
+
+        <div id="otpcontainer">
+            <div>
+                <label class="control-label col-md-2">Enter OTP : </label>
+                <div class="col-md-10">
+                    <input class="form-control" id="enteredotp"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="margin-left:5px;">
+                    <input type="submit" id="btnotp" value="submit" class="m-4 btn btn-outline-primary btn-default"/>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

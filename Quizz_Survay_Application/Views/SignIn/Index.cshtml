@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome</h2>
+
+<ul role="tablist" aria-owns="nav-tab1 nav-tab2" class="nav nav-tabs" id="nav-tab-with-nested-tabs">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="nav-tab1" href="#tab1-content" data-bs-toggle="tab" data-bs-target="#tab1-content" role="tab" aria-controls="tab1-content" aria-selected="true">Sign In</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab2" data-bs-toggle="tab" href="#tab2-content" data-bs-target="#tab2-content" role="tab" aria-controls="tab2-content" aria-selected="false">Register</a>
+        </li>
+</ul>
+
+    <div class="tab-content" id="nav-tabs-content">
+        <div id="tab1-content" class="tab-pane active" role="tabpanel" aria-labelledby="nav-tab1"><div class="p-2">@Html.Action("SignIn")</div></div>
+        <div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tabs2" ><div class="p-2">@Html.Action("RegisterUser")</div></div>
+    </div>
+
+
