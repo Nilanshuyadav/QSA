@@ -41,8 +41,6 @@ namespace Quizz_Survay_Application.Controllers
         [HttpPost]
         public ActionResult RegisterUser(RegisterModel user)
         {
-            user.Role = false;
-            user.LastLog = null;
             user.UserName = user.UserName.ToLower();
 
             repoObj.AddUser(user);
@@ -72,7 +70,7 @@ namespace Quizz_Survay_Application.Controllers
             smtp.Credentials = nc;
             smtp.Send(mailMessage);
 
-            TempData["otp"] = otp;
+            repoObj.InsertUpdateOTP(email, otp);
         }
 
         public string GenerateOTP()
@@ -88,19 +86,16 @@ namespace Quizz_Survay_Application.Controllers
             return otp;
         }
 
-        public int Validate(string EnteredOTP, string Email, )
+        public int Validate(string EnteredOTP, string Email)
         {
-            var SentOTP = (string)TempData.Peek("otp");
+            var result = repoObj.ValidateOTP(EnteredOTP, Email);
 
-            if(SentOTP == EnteredOTP)
+            if(result == 1)
             {
                 Session["CurrUser"] = Email;
-                return 1;
             }
-            else
-            {
-                return 2;
-            }
+
+            return result;
         }
     }
 }

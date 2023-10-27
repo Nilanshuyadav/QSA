@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.AssignmentsOfUserModel>
+
+@{
+    ViewBag.Title = "GetAssignmetsOfUser";
+    Layout = null;
+    int cnt = 1;
+}
+
+
+@*
+/*****************************************************************************************************************/*@
+
+
+<table class="table table-hover align-middle mb-0 bg-white">
+    <thead class="bg-light">
+        <tr>
+            <th>#</th>
+            <th>Assignment Name</th>
+            <th>Difficulty</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p class="fw-normal mb-1">@cnt</p>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                    </div>
+                </td>
+                <td>
+                    @if (item.As_Difficulty == "Easy")
+                    {
+                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else if (item.As_Difficulty == "Medium")
+                    {
+                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else
+                    {
+                        <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.As_Category)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark">
+                        View
+                    </button>
+                </td>
+            </tr>
+
+            cnt = cnt + 1;
+        }
+    </tbody>
+</table>
+
+

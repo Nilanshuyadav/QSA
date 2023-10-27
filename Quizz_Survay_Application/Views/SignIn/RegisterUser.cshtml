@@ -20,6 +20,7 @@
 
         $("#btnotpregister").click(function () {
             return verifyOTPregister();
+            
         });
 
         function verifyOTPregister() {
@@ -30,7 +31,16 @@
                 type: "GET",
                 data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase()},
                 success: function (data) {
-                    return true;
+                    if (data == 1) {
+                        alert("matched");
+                        $("#RegisterForm").submit();
+                    }
+                    else if (data == 2) {
+                        alert("Wrong OTP");
+                    }
+                    else {
+                        alert("OTP Expired");
+                    }
                 },
                 error: function (data) {
                     alert("something happened, Plz try again...");
@@ -48,7 +58,6 @@
                 data: { email: $("#UserName").val() },
                 success: function () {
                     $("#otpcontainerregister").show();
-                    $("#btnotpregister").removeAttr("disabled");
                     $("#btnregister").attr("disabled", true);
                 },
                 error: function (error) {
@@ -69,7 +78,7 @@
 <h2>RegisterUser</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("RegisterUser", "SignIn", FormMethod.Post, new {id = "RegisterForm"})) 
 {
     
     <div class="form-horizontal">
@@ -104,7 +113,7 @@
                 <label class="control-label col-md-2">Enter OTP : </label>
                 <div class="col-md-10">
                     <input class="form-control" id="enteredotpregister" />
-                    <input type="submit" id="btnotpregister" value="verify" disabled class="btn btn-default btn-outline-primary btn-sm ms-3" style="margin-left: 5px;"/>
+                    <input type="submit" id="btnotpregister" value="verify" class="btn btn-default btn-outline-primary btn-sm ms-3" style="margin-left: 5px;"/>
                    
                 </div>
             </div>

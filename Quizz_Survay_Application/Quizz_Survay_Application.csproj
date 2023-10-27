@@ -129,6 +129,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssignmentsOfUserModel.cs" />
     <Compile Include="Models\DapperORM.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
@@ -194,6 +195,7 @@
     <Content Include="Views\SignIn\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\GetUserProfile.cshtml" />
+    <Content Include="Views\User\GetAssignmetsOfUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />
