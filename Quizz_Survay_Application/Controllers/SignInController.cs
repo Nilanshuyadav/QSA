@@ -50,9 +50,21 @@ namespace Quizz_Survay_Application.Controllers
             return RedirectToAction("Index", "User");
         }
 
-        [HttpPost]
-        public void SendOTP(string email)
+        public int ValidateEmail(string email)
         {
+            if (repoObj.ValidateEmail(email) == 1)
+            {
+                return 1;
+            }
+
+            TempData["email"] = email;
+
+            return SendOTP();
+        }
+
+        public int SendOTP()
+        {
+            var email = (string)TempData["email"];
             string otp = GenerateOTP();
 
             MailMessage mailMessage = new MailMessage("nilanshu08@gmail.com", email);
@@ -71,6 +83,8 @@ namespace Quizz_Survay_Application.Controllers
             smtp.Send(mailMessage);
 
             repoObj.InsertUpdateOTP(email, otp);
+
+            return 2;
         }
 
         public string GenerateOTP()

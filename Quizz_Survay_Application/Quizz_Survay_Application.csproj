@@ -131,6 +131,8 @@
     </Compile>
     <Compile Include="Models\AssignmentsOfUserModel.cs" />
     <Compile Include="Models\DapperORM.cs" />
+    <Compile Include="Models\OptionModel.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppFiles\Images\60111.jpg" />
+    <Content Include="AppFiles\Images\plus.png" />
     <Content Include="AppFiles\Images\testing_profile_Image.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -196,6 +199,9 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\GetUserProfile.cshtml" />
     <Content Include="Views\User\GetAssignmetsOfUser.cshtml" />
+    <Content Include="Views\User\GetAssignmentQuestions.cshtml" />
+    <Content Include="Views\User\GetAssignmentQuestionsUser.cshtml" />
+    <Content Include="Views\User\BuildNewQuizz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />

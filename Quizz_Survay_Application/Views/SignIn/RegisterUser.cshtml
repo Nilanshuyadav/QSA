@@ -13,8 +13,14 @@
     $(document).ready(function () {
         $("#otpcontainerregister").hide();
         let SentOTP = "";
+        var isBlocked = false;
 
         $("#btnregister").click(function () {
+            if (isBlocked) {
+                alert("Your UserName is Blocked, plz contact admin");
+                return false;
+            }
+
             return verifyEmailregister();
         });
 
@@ -32,14 +38,17 @@
                 data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase()},
                 success: function (data) {
                     if (data == 1) {
-                        alert("matched");
                         $("#RegisterForm").submit();
                     }
                     else if (data == 2) {
-                        alert("Wrong OTP");
+                        alert("not matched");
+                    }
+                    else if (data == 3) {
+                        alert("Expired");
                     }
                     else {
-                        alert("OTP Expired");
+                        alert("Blocked");
+                        isBlocked = true;
                     }
                 },
                 error: function (data) {
@@ -53,15 +62,21 @@
         function verifyEmailregister() {
 
             $.ajax({
-                url: "/SignIn/SendOTP",
+                url: "/SignIn/ValidateEmail",
                 type: "POST",
                 data: { email: $("#UserName").val() },
-                success: function () {
-                    $("#otpcontainerregister").show();
-                    $("#btnregister").attr("disabled", true);
+                success: function (data) {
+                    if (data == 2) {
+                        $("#otpcontainerregister").show();
+                        $("#btnregister").attr("disabled", true);
+                    }
+                    else{
+                        alert("User already exists");
+                    }
+                    
                 },
                 error: function (error) {
-                    alert("SomeThing Happended, Plz Try Again");
+                    alert("Something Wrong Happened...");
                 }
             });
 

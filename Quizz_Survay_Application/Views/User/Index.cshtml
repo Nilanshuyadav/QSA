@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -16,7 +18,7 @@
         .split {
             height: 100%;
             width: 20%;
-            position: fixed ;
+            position: fixed;
             z-index: 1;
             top: 55px;
             overflow-x: hidden;
@@ -40,25 +42,27 @@
             text-align: center;
         }
 
-        .centered img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            color: white;
-            margin-top: 100px;
-        }
+            .centered img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                color: white;
+                margin-top: 100px;
+            }
     </style>
+
+
 </head>
 <body>
 
     <div class="split left">
-        <div class="centered" style="top: 30%">
+        <div class="centered" style="top: 35%" id="leftpart">
             @Html.Action("GetUserProfile")
         </div>
     </div>
 
     <div class="split right" style="width:80%">
-        <div style="padding-left:4%">
+        <div style="padding-left:4%" id="rightpart">
             @Html.Action("GetAssignmetsOfUser");
         </div>
     </div>

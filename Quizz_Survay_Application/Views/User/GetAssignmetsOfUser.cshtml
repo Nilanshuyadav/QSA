@@ -11,56 +11,96 @@
 /*****************************************************************************************************************/*@
 
 
-<table class="table table-hover align-middle mb-0 bg-white">
-    <thead class="bg-light">
-        <tr>
-            <th>#</th>
-            <th>Assignment Name</th>
-            <th>Difficulty</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".btngetassignmentofuser").click(function () {
+            alert("clicked");
+
+            let selected_assignment = {
+                As_Id: $(this).attr('id'),
+                As_Name: $.trim( $(this).closest("tr").find("td").eq(1).text() ),
+                As_Category: $.trim( $(this).closest("tr").find("td").eq(3).text() ),
+                As_Difficulty: $.trim( $(this).closest("tr").find("td").eq(2).text() ),
+            }
+
+            $.ajax({
+                url: "/user/GetAssignmentQuestionsUser",
+                type: "POST",
+                data: { selected_assignment: selected_assignment },
+                success: function(data){
+                    $("#body").html(data);
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<div id="body">
+
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
             <tr>
-                <td>
-                    <p class="fw-normal mb-1">@cnt</p>
-                </td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
-                    </div>
-                </td>
-                <td>
-                    @if (item.As_Difficulty == "Easy")
-                    {
-                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
-                    else if (item.As_Difficulty == "Medium")
-                    {
-                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
-                    else
-                    {
-                        <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.As_Category)
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark">
-                        View
-                    </button>
-                </td>
+                <th>#</th>
+                <th>Assignment Name</th>
+                <th>Difficulty</th>
+                <th>Category</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p class="fw-normal mb-1">@cnt</p>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                        </div>
+                    </td>
+                    <td>
+                        @if (item.As_Difficulty == "Easy")
+                        {
+                            <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
+                        else if (item.As_Difficulty == "Medium")
+                        {
+                            <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
 
-            cnt = cnt + 1;
-        }
-    </tbody>
-</table>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.As_Category)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btngetassignmentofuser btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
+                            View
+                        </button>
+                    </td>
+                </tr>
+
+                cnt = cnt + 1;
+            }
+        </tbody>
+    </table>
+
+
+</div>
 
 

@@ -17,5 +17,9 @@ namespace Quizz_Survay_Application.Repository
         IEnumerable<AssignmentsOfUserModel> GetAssignmentsOfUser(string UserName);
         void InsertUpdateOTP(string email, string OTP);
         int ValidateOTP(string enteredotp, string email);
+        int ValidateEmail(string email);
+        IEnumerable<QuestionModel> GetQuestionsOfAssignment(int As_Id);
+        IEnumerable<OptionModel> GetOptionsOfQuestion(int Q_Id);
+        void UpdateAssignment(IEnumerable<QuestionModel> res);
     }
 }

@@ -10,17 +10,23 @@
 <script>
 
     $(document).ready(function () {
+        var isBlocked = false;
+        var currUser;
+
         $("#otpcontainer").hide();
 
         $("#btnemail").click(function () {
+            if (isBlocked) {
+                alert("Your UserName is Blocked, plz contact admin");
+                return false;
+            }
+
             return VerifyEmail();
         });
 
         $("#btnotp").click(function () {
             return VerifyOTP();
         });
-
-        var currUser;
 
         function VerifyOTP() {
             var EnteredOTP_ = $("#enteredotp").val();
@@ -42,6 +48,13 @@
                     else if (data == 2) {
                         alert("not matched");
                     }
+                    else if (data == 3) {
+                        alert("Expired");
+                    }
+                    else {
+                        alert("Blocked");
+                        isBlocked = true;
+                    }
                 },
                 error: function (data) {
                     alert("something happened, Plz try again...");
@@ -61,11 +74,16 @@
                 if (item.UserName === EnteredEmail) {
                     currUser = item;
                     $.ajax({
-                        url: "/SignIn/SendOTP",
+                        url: "/SignIn/ValidateEmail",
                         type: "POST",
                         data: { email: EnteredEmail },
-                        success: function () {
-                            $("#otpcontainer").show();
+                        success: function (data) {
+                            if (data == 1) {
+                                alert("blocked user");
+                            }
+                            else {
+                                $("#otpcontainer").show();
+                            }
                         },
                         error: function (error) {
                             alert("Something strange happended...PLz try again");

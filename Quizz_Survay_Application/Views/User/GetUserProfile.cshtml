@@ -4,19 +4,52 @@
     Layout = null;
 }
 
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addquizz").click(function () {
+
+            $.ajax({
+                url: '/User/BuildNewQuizz',
+                type: "GET",
+                success: function (data) {
+                    $("#body").html(data);
+                },
+                error: function (error) {
+                    alert(error.toString());
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
 <img src="@Url.Content("~\\AppFiles\\Images\\60111.jpg")" alt="the pic is here">
 <p class="fs-4" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
-<p >@Model.UserName</p>
+<p>@Model.UserName</p>
 @{
     if (!Model.Role)
     {
-        <h6>User</h6>
+        <p>User</p>
     }
     else
     {
-        <h6>Admin</h6>
+        <p>Admin</p>
     }
+
+    <button id="addquizz" style="background-color: #111; border:none"><img src="~/AppFiles/Images/plus.png" class="btn btn-dark rounded-pill" style="width: 70px; height: 70px; margin: 0; margin-top: 2rem;" /></button>
 }
+
+
 
 @*
     ~\\AppFiles\\Images\\testing_profile_Image.png*@
