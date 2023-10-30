@@ -21,5 +21,7 @@ namespace Quizz_Survay_Application.Repository
         IEnumerable<QuestionModel> GetQuestionsOfAssignment(int As_Id);
         IEnumerable<OptionModel> GetOptionsOfQuestion(int Q_Id);
         void UpdateAssignment(IEnumerable<QuestionModel> res);
+
+        void AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName);
     }
 }

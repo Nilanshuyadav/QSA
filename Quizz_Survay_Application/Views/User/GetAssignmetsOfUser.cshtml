@@ -15,7 +15,6 @@
 <script>
     $(document).ready(function () {
         $(".btngetassignmentofuser").click(function () {
-            alert("clicked");
 
             let selected_assignment = {
                 As_Id: $(this).attr('id'),
@@ -32,7 +31,7 @@
                     $("#body").html(data);
                 },
                 error: function (data) {
-                    alert("error");
+                    alert("Something wrong happened, plz try again...");
                 }
             });
         });

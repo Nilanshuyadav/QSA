@@ -70,6 +70,13 @@ namespace Quizz_Survay_Application.Controllers
             return View();
         }
 
+        [HttpPost]
+        public int AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign)
+        {
+            repoObj.AddAssignment(newassigninfo, newassign, CurrUser);
+            return 1;
+        }
+
 
         /*[HttpPost]
         public ActionResult GetAssignmentQuestions(AssignmentsOfUserModel selected_assignment)

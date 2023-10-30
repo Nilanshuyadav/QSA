@@ -6,10 +6,8 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
     $(document).ready(function () {
-        alert("hello");
         var cnt = 0;
 
-        // Event delegation for dynamically added questions
         $("#containerbuildnewquizz").on("change", ".questionType", function () {
             var selectedOption = $(this).val();
             var $questionContainer = $(this).closest(".card-body");
@@ -20,12 +18,12 @@
             if (selectedOption === 'tf') {
                 var true_false =
                     '<div class="form-check">' +
-                    '    <input class="form-check-input" type="radio" name="trueFalseOption" id="trueOption" value="true">' +
-                    '    <label class="form-check-label" for="trueOption">True</label>' +
+                    '    <input class="form-check-input" type="radio" name="' + cnt + 'Option" id="' + cnt + 'trueOption" value="true">' +
+                    '    <label class="form-check-label" for="' + cnt + 'trueOption">True</label>' +
                     '</div>' +
                     '<div class="form-check">' +
-                    '    <input class="form-check-input" type="radio" name="trueFalseOption" id="falseOption" value="false">' +
-                    '    <label class="form-check-label" for="falseOption">False</label>' +
+                    '    <input class="form-check-input" type="radio" name="' + cnt + 'Option" id="' + cnt + 'falseOption" value="false">' +
+                    '    <label class="form-check-label" for="' + cnt + 'falseOption">False</label>' +
                     '</div>';
 
                 $questionContainer.find(".optiontable").html(true_false);
@@ -42,7 +40,7 @@
 
             var new_option =
                 '<div class="form-check">' +
-                '    <input class="form-check-input" type="radio" name="trueFalseOption" value="true">' +
+                '    <input class="form-check-input" type="radio" name="' + cnt + 'Option" value="true">' +
                 '    <label class="form-check-label" for="trueOption" contentEditable="true">option</label>' +
                 '</div>';
 
@@ -56,8 +54,8 @@
                 '<div class="card mb-4 border-dark question" style="width:45rem">' +
                 '<div class="card-header text-dark">' + cnt + '</div>' +
                 '<div class="card-body">' +
-                '<div class="d-inline"><h5 class="card-title text-dark mb-5 d-inline" contentEditable="true">Question ' + cnt + '</h5></div>' +
-                '<select class="custom-select d-inline end-0 questionType">' +
+                '<div class="d-inline"><h5 class="card-title text-dark mb-5 d-inline" contentEditable="true" id="' + cnt + 'questiontext">Question ' + cnt + '</h5></div>' +
+                '<select class="custom-select d-inline end-0 questionType" id="' + cnt + 'questiontype">' +
                 '<option value="disables" disabled selected>Select</option>' +
                 '<option value="tf">1. True/False</option>' +
                 '<option value="multi">2. Multiple Choice</option>' +
@@ -71,8 +69,49 @@
         });
 
         $("#btnbuildnewquizz").click(function () {
+            var newassigninfo_ = {
+                As_Name: $("#assignmentnamebuildnewquizz").val(),
+                As_Category: $("#assignmentcategorybuildnewquizz").val(),
+                As_Difficulty: $('#assignmentdifficultybuildnewquizz').find(":selected").text()
+            };
+
             var Questions = [];
 
+            for (var i = 1; i <= cnt; i++) {
+
+                var options = [];
+
+                $("input[name='" + i + "Option']").each(function () {
+                    var newoption = {
+                        Options: $(this).next("label").text(),
+                        Marks: ($(this).prop('checked')) ? true : false
+                    };
+
+                    options.push(newoption);
+                });
+
+                var newquestion = {
+                    Q_Text: $("#" + i + "questiontext").html(),
+                    Options: options
+                };
+
+                Questions.push(newquestion);
+            }
+
+
+            $.ajax({
+                url: "/user/AddAssignment",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ newassigninfo: newassigninfo_ , newassign: Questions }),
+                success: function (data) {
+                    alert("Quizz Added...");
+                    location.reload(true);
+                },
+                error: function (error) {
+                    alert("Something wrong happened ...");
+                }
+            });
 
         });
     });
@@ -85,6 +124,7 @@
         width: 50%;
         margin: auto;
         margin-top: 35px;
+        margin-bottom: 8%;
     }
 
 </style>
@@ -100,6 +140,7 @@
         <option value="Hard">Hard</option>
     </select>
 </div>
+
 <div id="containerbuildnewquizz">
 </div>
 

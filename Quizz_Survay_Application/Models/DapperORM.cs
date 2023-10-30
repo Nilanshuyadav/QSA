@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -41,6 +42,20 @@ namespace Quizz_Survay_Application.Models
                 var res = con.Query<T>(procedurename, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return res;
             }
+        }
+
+        public static T ReturnIdByOutput<T>(string procedurename, DynamicParameters parameters = null)
+        {
+            T res;
+
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                con.Execute(procedurename, parameters, commandType: CommandType.StoredProcedure);
+                res = parameters.Get<T>("@out");
+            }
+
+            return res;
         }
     }
 }

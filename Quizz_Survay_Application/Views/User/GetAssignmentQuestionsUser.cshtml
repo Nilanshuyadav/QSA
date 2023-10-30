@@ -17,8 +17,6 @@
 
         $("#btngetassignmentquestionsuser").click(function () {
 
-            console.log(data);
-
             $.each(data, function (index, item) {
                 var q_id = item.Q_Id;
                 var st = $('input[name="' + q_id + '"]:checked').parent().attr('id');
@@ -43,6 +41,7 @@
                 type: "POST",
                 data: { res: data },
                 success: function (success) {
+                    alert("Quizz Updated...");
                     location.reload(true);
                 },
                 error: function (error) {
@@ -80,27 +79,39 @@
             </div>
             <div class="card-body">
                 @{ 
-                    var id_q = item.Q_Id+"q";
+                    var id_q = item.Q_Id + "q";
                 }
                 <h5 class="card-title text-dark mb-5" id=@id_q contentEditable="true">@item.Q_Text</h5>
+                
+                @{var n = item.Options.Count;
+                }
 
                 <table class="table table-borderless">
-                    @for (var i = 0; i < item.Options.Count;)
+                    @for (var i = 0; i < n;)
                     {
-                        <tr>
-                            <td>
-                                <label class="card-text text-dark" id=@item.Options[i].O_id> 
-                                    <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
-                                    <span contentEditable="true"> @item.Options[i++].Options</span>
-                                </label>
-                            </td>
 
-                            <td>
-                                <label class="card-text text-dark" id=@item.Options[i].O_id>
-                                    <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
-                                    <span contenteditable="true"> @item.Options[i++].Options</span>
-                                </label>
-                            </td>
+
+                        <tr>
+                            @if (i < n)
+                            {
+                                <td>
+                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                        <span contenteditable="true"> @item.Options[i++].Options</span>
+                                    </label>
+                                </td>
+                            }
+
+                            @if (i < n)
+                            {
+                                <td>
+                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                        <span contenteditable="true"> @item.Options[i++].Options</span>
+                                    </label>
+                                </td>
+                            }
+
                         </tr>
                     }
                 </table>

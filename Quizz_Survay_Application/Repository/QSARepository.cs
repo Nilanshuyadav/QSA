@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Dapper;
@@ -9,6 +13,45 @@ namespace Quizz_Survay_Application.Repository
 {
     public class QSARepository : IQSARepository
     {
+        void IQSARepository.AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName)
+        {
+
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@UserName", UserName);
+            dp.Add("@As_Name", newassigninfo.As_Name);
+            dp.Add("@As_Category", newassigninfo.As_Category);
+            dp.Add("@As_Difficulty", newassigninfo.As_Difficulty);
+
+            var As_Id = DapperORM.ExecuteReturnScalar<int>("AddNewAssignment", dp);
+            var q_id = 0;
+
+            foreach(var item in newassign)
+            {
+                DynamicParameters dp2 = new DynamicParameters();
+                dp2.Add("@As_Id", As_Id);
+                dp2.Add("@Q_Text", item.Q_Text);
+                dp2.Add("@out", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+
+                q_id = DapperORM.ReturnIdByOutput<int>("AddNewQuestion", dp2);
+
+
+                foreach(var question in item.Options)
+                {
+                    DynamicParameters dp3 = new DynamicParameters();
+                    dp3.Add("@Q_Id", q_id);
+                    dp3.Add("@Options", question.Options);
+                    dp3.Add("@marks", question.Marks);
+                    dp3.Add("@out", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    DapperORM.ReturnIdByOutput<int>("AddNewOption", dp3);
+                }
+
+            }
+
+            return;
+        }
+
         void IQSARepository.AddUser(RegisterModel user)
         {
             DynamicParameters dp = new DynamicParameters();
