@@ -129,6 +129,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\AssignmentsOfUserModel.cs" />
     <Compile Include="Models\DapperORM.cs" />
     <Compile Include="Models\OptionModel.cs" />
@@ -199,7 +200,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\GetUserProfile.cshtml" />
     <Content Include="Views\User\GetAssignmetsOfUser.cshtml" />
-    <Content Include="Views\User\GetAssignmentQuestions.cshtml" />
+    <Content Include="Views\Home\GetAssignmentQuestions.cshtml" />
     <Content Include="Views\User\GetAssignmentQuestionsUser.cshtml" />
     <Content Include="Views\User\BuildNewQuizz.cshtml" />
   </ItemGroup>

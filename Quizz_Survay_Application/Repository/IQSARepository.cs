@@ -23,5 +23,8 @@ namespace Quizz_Survay_Application.Repository
         void UpdateAssignment(IEnumerable<QuestionModel> res);
 
         void AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName);
+
+        IEnumerable<Assignment> GetAllAssignments();
+
     }
 }

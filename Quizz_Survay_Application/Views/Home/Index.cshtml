@@ -1,33 +1,93 @@
-﻿@{
+﻿@model IEnumerable<Quizz_Survay_Application.Models.Assignment>
+
+@{
     ViewBag.Title = "Home Page";
+    int cnt = 1;
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
-</main>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $(".btnhomeindex").click(function () {
+            var id = $(this).attr('id');
+            var ref = "/home/GetAssignmentQuestions/" + id;
+
+            location.href = ref;
+        });
+    });
+
+</script>
+
+<style>
+
+    #welcometext{
+        width: 50%;
+        margin: auto;
+        margin-bottom: 10%;
+    }
+
+</style>
+
+
+
+
+
+<div id="welcometext"><h1>Hello, Welcome to The quizz application...</h1></div>
+
+<table class="table table-hover align-middle mb-0 bg-white">
+    <thead class="bg-light">
+        <tr>
+            <th>#</th>
+            <th>Assignment Name</th>
+            <th>Difficulty</th>
+            <th>Category</th>
+            <th>Created By</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p class="fw-normal mb-1">@cnt</p>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                    </div>
+                </td>
+                <td>
+                    @if (item.As_Difficulty == "Easy")
+                    {
+                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else if (item.As_Difficulty == "Medium")
+                    {
+                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else
+                    {
+                        <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.As_Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    <button type="button" class="btn btnhomeindex btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
+                        Start
+                    </button>
+                </td>
+            </tr>
+
+            cnt = cnt + 1;
+        }
+    </tbody>
+</table>

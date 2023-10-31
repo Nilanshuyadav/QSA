@@ -65,6 +65,11 @@ namespace Quizz_Survay_Application.Repository
             DapperORM.ExecuteWithoutReturn("AddNewUser", dp);
         }
 
+        IEnumerable<Assignment> IQSARepository.GetAllAssignments()
+        {
+            return DapperORM.ReturnList<Assignment>("GetAllAssignments", null);
+        }
+
         IEnumerable<SignInModel> IQSARepository.GetAllUser()
         {
             return DapperORM.ReturnList<SignInModel>("GetAllUsers", null);

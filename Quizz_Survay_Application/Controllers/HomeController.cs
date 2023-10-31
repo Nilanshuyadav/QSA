@@ -3,28 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Quizz_Survay_Application.Repository;
 
 namespace Quizz_Survay_Application.Controllers
 {
     public class HomeController : Controller
     {
+        IQSARepository repoObj;
+
+        public HomeController()
+        {
+            repoObj = new QSARepository();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var Assignments = repoObj.GetAllAssignments();
+            
+            return View(Assignments);
         }
 
-        public ActionResult About()
+        public ActionResult GetAssignmentQuestions(int id)
         {
-            ViewBag.Message = "Your application description page.";
+            var QuestionsOfAssignment = repoObj.GetQuestionsOfAssignment(id);
 
-            return View();
-        }
+            foreach(var item in QuestionsOfAssignment)
+            {
+                item.Options = repoObj.GetOptionsOfQuestion(item.Q_Id).ToList();
+            }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(QuestionsOfAssignment);
         }
     }
 }

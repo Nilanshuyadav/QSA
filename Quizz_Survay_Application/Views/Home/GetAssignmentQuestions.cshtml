@@ -1,0 +1,202 @@
+﻿
+@model IEnumerable<Quizz_Survay_Application.Models.QuestionModel>
+
+@{
+    ViewBag.Title = "GetAssignmentQuestions";
+    int cnt = 1;
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $(".answer").hide();
+
+        $("#btngetassignmentquestions").click(function () {
+            btngetassignmentquestionsclicked();
+        });
+
+
+
+        function btngetassignmentquestionsclicked() {
+            var questions = @Html.Raw(Json.Encode(Model));
+            var temp, st, score = 0;
+
+            $(".question").removeClass("mb-4");
+            $(".question").addClass("mb-2");
+
+            $.each(questions, function (index, item) {
+                st = 'input[name="' + item.Q_Id + '"]:checked';
+                temp = $(st).val();
+
+                $(".answer").show();
+
+                if (temp == "value") {
+                    score++;
+
+                    var res = $(st).parent().attr("id");
+                    var correct_ans = $("#" + res + " span").html();
+
+                    $(".answer ." + item.Q_Id).html("Answer: <span class='text-success'>" + correct_ans + "</span>");
+                }
+                else {
+                    var correct_ans_ = $("#" + item.Ans_Op_Id + " span").html();
+
+                    $(".answer ." + item.Q_Id).html("Answer: <span class='text-danger'>" + correct_ans_ + "</span>");
+                }
+            });
+
+            localStorage.removeItem("quizStartTime");
+            clearInterval(timerInterval);
+
+            alert("Your Score is : " + score);
+
+            localStorage.setItem("completed", true);
+        }
+
+
+
+        if (localStorage.getItem('completed')) {
+
+            localStorage.removeItem('completed');
+            location.href = "/home/Index";
+            
+        }
+
+
+
+
+
+
+
+
+        var timerElement = $("#timer");
+        var quizStartTime = localStorage.getItem("quizStartTime");
+        var timerInterval;
+
+        if (!quizStartTime) {
+            quizStartTime = new Date().getTime();
+            localStorage.setItem("quizStartTime", quizStartTime);
+        }
+
+        function updateTimer() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = Math.floor((currentTime - quizStartTime) / 1000);
+            var timeLeft = 30 - elapsedTime;
+
+            if (timeLeft < 0) {
+                localStorage.removeItem("quizStartTime");
+                timerElement.text("Time's up!");
+                clearInterval(timerInterval);
+
+                setTimeout(btngetassignmentquestionsclicked, 1000);
+            } else {
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+                var formattedTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                timerElement.text(formattedTime);
+            }
+        }
+
+        updateTimer();
+
+        timerInterval = setInterval(updateTimer, 1000);
+
+    });
+</script>
+
+
+
+
+
+<style>
+    .questioncontainer{
+        width: 60%;
+        margin: auto;
+    }
+
+    .containerGetAssignmentQuestions {
+        margin-bottom: 8%;
+    }
+
+    .containerbtn {
+        width: 50%;
+        margin: auto;
+    }
+
+    .timersection{
+        position: fixed;
+        right: 7%;
+        top: 25%;
+        border: 2px solid green;
+        padding: 5px;
+    }
+</style>
+
+
+<div class="questioncontainer">
+
+    <div class="containerGetAssignmentQuestions">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-4 border-dark question" style="width:45rem">
+                <div class="card-header text-dark">
+                    Q.@cnt
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-dark mb-5">@item.Q_Text</h5>
+
+                    @{
+                        int n = item.Options.Count;
+                    }
+
+                    <table class="table table-borderless">
+                        @for (var i = 0; i < n;)
+                        {
+
+
+                            <tr>
+                                @if (i < n)
+                                {
+                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks><span> @item.Options[i++].Options</span></label></td>
+
+                                }
+
+                                @if (i < n)
+                                {
+                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks><span> @item.Options[i++].Options</span></label></td>
+
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-5 border-dark answer text-dark p-2" style="width:45rem">
+                <label class="text-dark @item.Q_Id"></label>
+            </div>
+
+            cnt = cnt + 1;
+        }
+
+
+        <div class="containerbtn"><input id="btngetassignmentquestions" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Submit"></div>
+
+    </div>
+
+
+
+
+
+    <div class="timersection"><span>Timer : </span><span id="timer">00:00</span></div>
+
+</div>
+
+
+
+
+

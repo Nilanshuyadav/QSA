@@ -77,18 +77,5 @@ namespace Quizz_Survay_Application.Controllers
             return 1;
         }
 
-
-        /*[HttpPost]
-        public ActionResult GetAssignmentQuestions(AssignmentsOfUserModel selected_assignment)
-        {
-            var QuestionsOfAssignment = repoObj.GetQuestionsOfAssignment(selected_assignment.As_Id);
-
-            foreach(var item in QuestionsOfAssignment)
-            {
-                item.Options = repoObj.GetOptionsOfQuestion(item.Q_Id).ToList();
-            }
-
-            return View(QuestionsOfAssignment);
-        }*/
     }
 }
