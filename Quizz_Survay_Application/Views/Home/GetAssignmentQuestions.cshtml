@@ -12,6 +12,9 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
     $(document).ready(function () {
+        $(".loginbtn").hide();
+        $(".logoutbtn").hide();
+        $(".searchbtn").hide();
 
         $(".answer").hide();
 
@@ -54,6 +57,9 @@
 
             alert("Your Score is : " + score);
 
+            $(':radio:not(:checked)').attr('disabled', true);
+            $("#btngetassignmentquestions").attr("disabled", true);
+
             localStorage.setItem("completed", true);
         }
 
@@ -65,13 +71,6 @@
             location.href = "/home/Index";
             
         }
-
-
-
-
-
-
-
 
         var timerElement = $("#timer");
         var quizStartTime = localStorage.getItem("quizStartTime");
@@ -161,13 +160,13 @@
                             <tr>
                                 @if (i < n)
                                 {
-                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks><span> @item.Options[i++].Options</span></label></td>
+                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks class="makediabled"><span> @item.Options[i++].Options</span></label></td>
 
                                 }
 
                                 @if (i < n)
                                 {
-                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks><span> @item.Options[i++].Options</span></label></td>
+                                    <td><label class="card-text text-dark" id=@item.Options[i].O_id> <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks class="makediabled"><span> @item.Options[i++].Options</span></label></td>
 
                                 }
                             </tr>
@@ -184,7 +183,7 @@
         }
 
 
-        <div class="containerbtn"><input id="btngetassignmentquestions" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Submit"></div>
+        <div class="containerbtn"><input id="btngetassignmentquestions" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-dark" value="Submit"></div>
 
     </div>
 

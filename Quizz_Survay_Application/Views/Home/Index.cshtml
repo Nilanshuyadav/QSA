@@ -10,11 +10,21 @@
 <script>
 
     $(document).ready(function () {
+        $(".searchbtn").show();
+        $(".loginbtn").show();
+        $(".logoutbtn").hide();
+
         $(".btnhomeindex").click(function () {
             var id = $(this).attr('id');
             var ref = "/home/GetAssignmentQuestions/" + id;
 
             location.href = ref;
+        });
+
+
+        $(document).on("keyup", ".searchbtn", function () {
+            var searched_text = $(".searchbtn input").val();
+            alert(searched_text);
         });
     });
 
