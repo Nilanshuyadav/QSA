@@ -1,22 +1,86 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+
 }
 
-<h2>Welcome</h2>
+@*<h2>Welcome</h2>*@
 
-<ul role="tablist" aria-owns="nav-tab1 nav-tab2" class="nav nav-tabs" id="nav-tab-with-nested-tabs">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="nav-tab1" href="#tab1-content" data-bs-toggle="tab" data-bs-target="#tab1-content" role="tab" aria-controls="tab1-content" aria-selected="true">Sign In</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="nav-tab2" data-bs-toggle="tab" href="#tab2-content" data-bs-target="#tab2-content" role="tab" aria-controls="tab2-content" aria-selected="false">Register</a>
-        </li>
-</ul>
+@*<ul role="tablist" aria-owns="nav-tab1 nav-tab2" class="nav nav-tabs" id="nav-tab-with-nested-tabs">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="nav-tab1" href="#tab1-content" data-bs-toggle="tab" data-bs-target="#tab1-content" role="tab" aria-controls="tab1-content" aria-selected="true">Sign In</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="nav-tab2" data-bs-toggle="tab" href="#tab2-content" data-bs-target="#tab2-content" role="tab" aria-controls="tab2-content" aria-selected="false">Register</a>
+            </li>
+    </ul>
 
-    <div class="tab-content" id="nav-tabs-content">
-        <div id="tab1-content" class="tab-pane active" role="tabpanel" aria-labelledby="nav-tab1"><div class="p-2">@Html.Action("SignIn")</div></div>
-        <div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tabs2" ><div class="p-2">@Html.Action("RegisterUser")</div></div>
+        <div class="tab-content" id="nav-tabs-content">
+            <div id="tab1-content" class="tab-pane active" role="tabpanel" aria-labelledby="nav-tab1">
+            <div class="p-2">@Html.Action("SignIn")</div>
+        </div>
+            <div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tabs2" >
+             <div class="p-2">@Html.Action("RegisterUser")</div>
+        </div>
+        </div>*@
+
+<div class="text-center m-2">
+    <h4>Welcome!</h4>
+    <div id="loading" class="spinner-border"></div>
+</div>
+
+<section class="min-vh-90 mt-5">
+    <div class="container p-5 my-5  text-black">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form>
+
+                    <div class="text-center text-lg-start mt-4 pt-2" id="signinPage">
+                        <div>
+                            @Html.Action("SignIn")
+
+                        </div>
+                       
+
+
+                        <div class="d-flex pb-4 mt-3">
+                            <p class="mb-0 me-2">Don't have an account?</p>
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="registerLoginButton">Create new</button>
+                        </div>
+
+
+                    </div>
+                    <div class="text-center text-lg-start mt-4 pt-2" id="registerUser">
+                        @Html.Action("RegisterUser")
+                    </div>
+
+            </form>
+        </div>
     </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+            $(document).ready(function () {
+                $("#registerUser").hide();
+                $("#loading").hide();
+                $("#registerLoginButton").click(function () {
+                    $("#signinPage").hide();
+                    $("#registerUser").show();
+
+                });
+                $("#btnemail").click(function () {
+                    $("#loading").show();
+                });
+                $("#btnregister").click(function () {
+                    $("#loading").show();
+                });
+
+            })
+
+    </script>
 
 

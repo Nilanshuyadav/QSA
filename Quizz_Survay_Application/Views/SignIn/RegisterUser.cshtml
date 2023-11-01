@@ -26,7 +26,7 @@
 
         $("#btnotpregister").click(function () {
             return verifyOTPregister();
-            
+
         });
 
         function verifyOTPregister() {
@@ -35,7 +35,7 @@
             $.ajax({
                 url: "/SignIn/Validate",
                 type: "GET",
-                data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase()},
+                data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase() },
                 success: function (data) {
                     if (data == 1) {
                         $("#RegisterForm").submit();
@@ -68,12 +68,15 @@
                 success: function (data) {
                     if (data == 2) {
                         $("#otpcontainerregister").show();
-                        $("#btnregister").attr("disabled", true);
+                        /*  $("#btnregister").attr("disabled", true);*/
+                        $("#btnregister").hide();
+                        $("#loading").hide();
+
                     }
-                    else{
+                    else {
                         alert("User already exists");
                     }
-                    
+
                 },
                 error: function (error) {
                     alert("Something Wrong Happened...");
@@ -90,46 +93,44 @@
 
 
 
-<h2>RegisterUser</h2>
+@*<h2>RegisterUser</h2>*@
 
 
-@using (Html.BeginForm("RegisterUser", "SignIn", FormMethod.Post, new {id = "RegisterForm"})) 
+@using (Html.BeginForm("RegisterUser", "SignIn", FormMethod.Post, new { id = "RegisterForm" }))
 {
-    
+
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group m-2">
+            <p>Please register your Account</p>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your First Name" } })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group m-2">
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Last Name" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="form-group m-2">
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Email" } })
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div id="otpcontainerregister">
-            <div>
-                <label class="control-label col-md-2">Enter OTP : </label>
-                <div class="col-md-10">
-                    <input class="form-control" id="enteredotpregister" />
-                    <input type="submit" id="btnotpregister" value="verify" class="btn btn-default btn-outline-primary btn-sm ms-3" style="margin-left: 5px;"/>
-                   
+            <div class="m-2">
+                <div class="col-md-12">
+                    <input class="form-control" id="enteredotpregister" placeholder="Enter OTP" />
+                    <div class="d-grid gap-1 col-11 ml-2 mt-2 p-2">
+                        <button class="btn btn-success btn-sm" type="button" id="btnotpregister">Register</button>
+
+                    </div>
                 </div>
             </div>
 
@@ -137,9 +138,12 @@
 
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-                <input type="submit" value="Register" id="btnregister" class="btn btn-default btn-primary mt-4" />
+
+            <div class="d-grid gap-1 col-11 ml-2 mt-2 p-2">
+                <button class="btn btn-success btn-sm" type="button" id="btnregister">Register</button>
+
             </div>
+
         </div>
     </div>
 }

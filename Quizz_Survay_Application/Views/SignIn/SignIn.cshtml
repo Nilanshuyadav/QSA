@@ -82,6 +82,8 @@
                                 alert("blocked user");
                             }
                             else {
+                                $("#loading").hide();
+                                $("#btnemail").hide();
                                 $("#otpcontainer").show();
                             }
                         },
@@ -111,36 +113,40 @@
 
 
 @using (Html.BeginForm())
-{
-   
-
+{ 
     <div class="form-horizontal">
         <div>
             <div class="form-group">
-                <lablel class="control-label col-md-2"> Email : </lablel>
+
                 <div class="col-md-10">
-                    <input class="form-control" id="enteremail" />
+                    <p>Please login to your Account </p>
+                    <input class="form-control" id="enteremail" placeholder="Enter Email" />
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-                    <input type="submit" id="btnemail" value="submit" class="btn btn-primary btn-default"/>
-                </div>
+            <div class="d-grid gap-1 col-10 ml-2 mt-2 p-2">
+                <button class="btn btn-success btn-sm" type="button" id="btnemail">Login</button>
+
             </div>
         </div>
 
         <div id="otpcontainer">
             <div>
-                <label class="control-label col-md-2">Enter OTP : </label>
+
                 <div class="col-md-10">
-                    <input class="form-control" id="enteredotp"/>
+                    <input class="form-control" id="enteredotp" placeholder="Enter OTP" />
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10" style="margin-left:5px;">
-                    <input type="submit" id="btnotp" value="submit" class="m-4 btn btn-outline-primary btn-default"/>
+                <!--<div class="col-md-offset-2 col-md-10" style="margin-left:5px;">-->
+                @*<input type="submit" id="btnotp" value="Submit" class="m-4 btn btn-outline-primary btn-default" />*@
+                <!--<button class="btn btn-success btn-sm" type="button" id="btnotp">Login</button>
+                </div>-->
+
+                <div class="d-grid gap-1 col-10 ml-2 mt-2 p-2">
+                    <button class="btn btn-success btn-sm" type="button" id="btnotp">Login</button>
+
                 </div>
             </div>
         </div>

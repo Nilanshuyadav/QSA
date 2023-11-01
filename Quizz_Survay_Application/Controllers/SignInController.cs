@@ -28,6 +28,7 @@ namespace Quizz_Survay_Application.Controllers
         }
 
         public ActionResult SignIn()
+        
         {
             return View(repoObj.GetAllUser());
         }
