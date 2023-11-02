@@ -34,7 +34,7 @@
 
 
 <img src="@Url.Content("~\\AppFiles\\Images\\60111.jpg")" alt="the pic is here">
-<p class="fs-4" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
+<p class="fs-3" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
 <p>@Model.UserName</p>
 @{
     if (!Model.Role)
@@ -46,7 +46,14 @@
         <p>Admin</p>
     }
 
-    <button id="addquizz" style="background-color: #111; border:none"><img src="~/AppFiles/Images/plus.png" class="btn btn-dark rounded-pill" style="width: 70px; height: 70px; margin: 0; margin-top: 2rem;" /></button>
+   
+
+    <button id="addquizz" style="background-color: #111; border:none;">
+        <img src="~/AppFiles/Images/plus.png" class="btn btn-outline-primary rounded-pill" style="width: 45px; height: 40px; margin: 0; margin-top: 2rem;" />
+    </button>
+   
+
+   
 }
 
 
