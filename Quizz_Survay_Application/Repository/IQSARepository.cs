@@ -10,8 +10,7 @@ namespace Quizz_Survay_Application.Repository
     internal interface IQSARepository
     {
         void AddUser(RegisterModel user);
-
-        IEnumerable<SignInModel> GetAllUser();
+        IEnumerable<SignInModel> GetAllUserSignIn();
         RegisterModel GetUser(string UserName);
         void UpdateLog(string UserName);
         IEnumerable<AssignmentsOfUserModel> GetAssignmentsOfUser(string UserName);
@@ -21,10 +20,11 @@ namespace Quizz_Survay_Application.Repository
         IEnumerable<QuestionModel> GetQuestionsOfAssignment(int As_Id);
         IEnumerable<OptionModel> GetOptionsOfQuestion(int Q_Id);
         void UpdateAssignment(IEnumerable<QuestionModel> res);
-
         void AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName);
-
         IEnumerable<Assignment> GetAllAssignments();
+        void DeleteAssignment(int id);
+        IEnumerable<RegisterModel> GetAllUser();
+        void MakeAdmin(string UserToMakeAdmin);
 
     }
 }

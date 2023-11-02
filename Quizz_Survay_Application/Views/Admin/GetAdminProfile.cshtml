@@ -1,6 +1,7 @@
-﻿@model Quizz_Survay_Application.Models.RegisterModel
+﻿
+@model Quizz_Survay_Application.Models.RegisterModel
 @{
-    ViewBag.Title = "GetUserProfile";
+    ViewBag.Title = "GetAdminProfile";
     Layout = null;
 }
 
@@ -15,7 +16,9 @@
                 url: '/User/BuildNewQuizz',
                 type: "GET",
                 success: function (data) {
-                    $("#body").html(data);
+                    /*$("#bodyadmin").html(data);*/
+
+                    alert("clicked");
                 },
                 error: function (error) {
                     alert("Something wrong happened, plz try again later...");

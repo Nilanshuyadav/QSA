@@ -16,7 +16,7 @@ namespace Quizz_Survay_Application.Controllers
         public UserController()
         {
             repoObj = new QSARepository();
-            CurrUser = "vaishnavipandey2606@gmail.com";
+            CurrUser = "yadavnilanshu7011@gmail.com";
         }
 
         // GET: User
@@ -64,17 +64,24 @@ namespace Quizz_Survay_Application.Controllers
             return;
         }
 
-
+        
         public ActionResult BuildNewQuizz()
         {
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public int AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign)
         {
             repoObj.AddAssignment(newassigninfo, newassign, CurrUser);
             return 1;
+        }*/
+
+        [HttpPost]
+        public void DeleteAssignment(int id)
+        {
+            repoObj.DeleteAssignment(id);
+            return;
         }
 
     }

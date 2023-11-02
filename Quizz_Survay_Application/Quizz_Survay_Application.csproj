@@ -123,6 +123,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -201,6 +202,9 @@
     <Content Include="Views\Home\GetAssignmentQuestions.cshtml" />
     <Content Include="Views\User\GetAssignmentQuestionsUser.cshtml" />
     <Content Include="Views\User\BuildNewQuizz.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\GetAllUser.cshtml" />
+    <Content Include="Views\Admin\GetAdminProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />

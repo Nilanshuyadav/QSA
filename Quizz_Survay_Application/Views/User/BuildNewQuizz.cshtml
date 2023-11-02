@@ -103,7 +103,7 @@
                 url: "/user/AddAssignment",
                 type: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({ newassigninfo: newassigninfo_ , newassign: Questions }),
+                data: JSON.stringify({ newassigninfo: newassigninfo_, newassign: Questions }),
                 success: function (data) {
                     alert("Quizz Added...");
                     location.reload(true);
@@ -120,20 +120,19 @@
 
 <style>
 
-    .containerbtn{
+    .containerbtn {
         width: 50%;
         margin: auto;
         margin-top: 35px;
         margin-bottom: 8%;
     }
-
 </style>
 
 <div id="assignmentinfobuildnewquizz">
     <input type="text" style="width: 50%; padding: 5px;" placeholder="Assignment Name" id="assignmentnamebuildnewquizz" />
-    
-    <input type="text" style="width: 200px; padding: 5px; margin-left:35px;" placeholder="Category" id="assignmentcategorybuildnewquizz"/>
-    
+
+    <input type="text" style="width: 200px; padding: 5px; margin-left:35px;" placeholder="Category" id="assignmentcategorybuildnewquizz" />
+
     <select class="custom-select d-inline end-0 ms-5" id="assignmentdifficultybuildnewquizz">
         <option value="Easy">Easy</option>
         <option value="Medium">Medium</option>

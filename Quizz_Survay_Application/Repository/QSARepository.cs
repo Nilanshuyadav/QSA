@@ -65,14 +65,28 @@ namespace Quizz_Survay_Application.Repository
             DapperORM.ExecuteWithoutReturn("AddNewUser", dp);
         }
 
+        void IQSARepository.DeleteAssignment(int id)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@Id", id);
+
+            DapperORM.ExecuteWithoutReturn("DeleteAssignment", dp);
+
+        }
+
         IEnumerable<Assignment> IQSARepository.GetAllAssignments()
         {
             return DapperORM.ReturnList<Assignment>("GetAllAssignments", null);
         }
 
-        IEnumerable<SignInModel> IQSARepository.GetAllUser()
+        IEnumerable<SignInModel> IQSARepository.GetAllUserSignIn()
         {
             return DapperORM.ReturnList<SignInModel>("GetAllUsers", null);
+        }
+
+        IEnumerable<RegisterModel> IQSARepository.GetAllUser()
+        {
+            return DapperORM.ReturnList<RegisterModel>("GetAllUsers", null);
         }
 
         IEnumerable<AssignmentsOfUserModel> IQSARepository.GetAssignmentsOfUser(string UserName)
@@ -115,6 +129,14 @@ namespace Quizz_Survay_Application.Repository
             dp.Add("@senttime", DateTime.Now.AddSeconds(60).ToString("MM / dd / yyyy HH: mm:ss"));
 
             DapperORM.ExecuteWithoutReturn("otpinsertupdate", dp);
+        }
+
+        void IQSARepository.MakeAdmin(string UserToMakeAdmin)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@UserName", UserToMakeAdmin);
+
+            DapperORM.ExecuteWithoutReturn("MakeAdmin", dp);
         }
 
         void IQSARepository.UpdateAssignment(IEnumerable<QuestionModel> res)

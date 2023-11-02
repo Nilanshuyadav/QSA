@@ -50,11 +50,29 @@ namespace Quizz_Survay_Application.Controllers
             return RedirectToAction("Index", "User");
         }
 
+        [HttpPost]
         public int ValidateEmail(string email)
         {
-            if (repoObj.ValidateEmail(email) == 1)
+            var res = repoObj.ValidateEmail(email);
+
+            if (res == 0 || res == 1)
             {
-                return 1;
+                return res;
+            }
+
+            TempData["email"] = email;
+
+            return SendOTP();
+        }
+
+        [HttpPost]
+        public int ValidateEmailSignIn(string email)
+        {
+            var res = repoObj.ValidateEmail(email);
+
+            if(res == 0)
+            {
+                return 0;
             }
 
             TempData["email"] = email;

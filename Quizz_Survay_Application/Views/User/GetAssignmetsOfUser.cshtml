@@ -8,26 +8,58 @@
 
 
 @*
-/*****************************************************************************************************************/*@
+    /*****************************************************************************************************************/*@
 
 
+
+<script src="https://kit.fontawesome.com/c4acbb682e.js" crossorigin="anonymous"></script>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
     $(document).ready(function () {
+        $(".deleteicon").hide();
+
+        $("tr").hover(
+            function () {
+                $(this).find('.deleteicon').show();
+            },
+            function () {
+                $(this).find('.deleteicon').hide();
+            }
+        );
+
+        $(".deleteicon").click(function () {
+            return deleteassignment($(this).closest('tr').attr('id'));
+        });
+
+
+        function deleteassignment(id) {
+            $.ajax({
+                url: "/user/DeleteAssignment",
+                type: "POST",
+                data: { id: id },
+                success: function (data) {
+                    location.reload(true);
+                },
+                error: function (error) {
+                    alert("error is : " + error.toString());
+                }
+            });
+        }
+
         $(".btngetassignmentofuser").click(function () {
 
             let selected_assignment = {
-                As_Id: $(this).attr('id'),
-                As_Name: $.trim( $(this).closest("tr").find("td").eq(1).text() ),
-                As_Category: $.trim( $(this).closest("tr").find("td").eq(3).text() ),
-                As_Difficulty: $.trim( $(this).closest("tr").find("td").eq(2).text() ),
+                As_Id: $(this).closest('tr').attr('id'),
+                As_Name: $.trim($(this).closest("tr").find("td").eq(1).text()),
+                As_Category: $.trim($(this).closest("tr").find("td").eq(3).text()),
+                As_Difficulty: $.trim($(this).closest("tr").find("td").eq(2).text()),
             }
 
             $.ajax({
                 url: "/user/GetAssignmentQuestionsUser",
                 type: "POST",
                 data: { selected_assignment: selected_assignment },
-                success: function(data){
+                success: function (data) {
                     $("#body").html(data);
                 },
                 error: function (data) {
@@ -55,12 +87,13 @@
                 <th>Difficulty</th>
                 <th>Category</th>
                 <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id=@item.As_Id>
                     <td>
                         <p class="fw-normal mb-1">@cnt</p>
                     </td>
@@ -88,9 +121,12 @@
                         @Html.DisplayFor(modelItem => item.As_Category)
                     </td>
                     <td>
-                        <button type="button" class="btn btngetassignmentofuser btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
-                            View
+                        <button type="button" class="btn btngetassignmentofuser btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark">
+                            Edit
                         </button>
+                    </td>
+                    <td>
+                        <button class=" deleteicon rounded-pill btn-secondary border-0"><i class="fa-solid fa-trash" style="right: 20%;"></i></button><div></div>
                     </td>
                 </tr>
 

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.RegisterModel>
+
+@{
+    ViewBag.Title = "GetAllUser";
+    Layout = null;
+    int cnt = 1;
+}
+
+
+<script>
+    $(document).ready(function () {
+        $(".makeadmin").on('click', function () {
+            return makeadminfunction(this);
+        });
+
+        function makeadminfunction(curr) {
+            var clickeduser = $(curr).closest("tr").find("td").eq(1).text().trim();
+
+            $.ajax({
+                url: "/admin/makeadmin",
+                type: "POST",
+                data: { UserToMakeAdmin: clickeduser },
+                success: function (data) {
+                    alert("done...");
+                    var curr_role = $(curr).closest('tr').find('td span');
+
+                    curr_role.html('Admin');
+                    curr_role.removeClass('bg-warning text-warning');
+                    curr_role.addClass('bg-success text-success')
+                },
+                error: function (error) {
+                    alert("error");
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+
+<table class="table table-hover align-middle mb-0 bg-white">
+    <thead class="bg-light">
+        <tr>
+            <th>#</th>
+            <th>UserName</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>LastLog</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p class="fw-normal mb-1">@cnt</p>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        @item.UserName
+                    </div>
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @if (item.Role == true)
+                    {
+                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">Admin</span>
+                    }
+                    else
+                    {
+                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">User</span>
+                    }
+
+                </td>
+                <td>
+                    @item.LastLog
+                </td>
+                <td>
+                    <button type="button" class="btn makeadmin btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark">
+                        Make Admin
+                    </button>
+                </td>
+                @*<td>
+                        <button class=" deleteicon rounded-pill btn-secondary border-0"><i class="fa-solid fa-trash" style="right: 20%;"></i></button><div></div>
+                    </td>*@
+            </tr>
+
+            cnt = cnt + 1;
+        }
+    </tbody>
+</table>
+

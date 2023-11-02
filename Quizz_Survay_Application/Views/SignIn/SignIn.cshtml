@@ -74,11 +74,12 @@
                 if (item.UserName === EnteredEmail) {
                     currUser = item;
                     $.ajax({
-                        url: "/SignIn/ValidateEmail",
+                        url: "/SignIn/ValidateEmailSignIn",
                         type: "POST",
                         data: { email: EnteredEmail },
                         success: function (data) {
-                            if (data == 1) {
+                            if (data == 0) {
+                                isBlocked = true;
                                 alert("blocked user");
                             }
                             else {
