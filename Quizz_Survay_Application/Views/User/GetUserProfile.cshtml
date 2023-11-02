@@ -1,0 +1,50 @@
+﻿@model Quizz_Survay_Application.Models.RegisterModel
+@{
+    ViewBag.Title = "GetUserProfile";
+    Layout = null;
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#addquizz").click(function () {
+
+            $.ajax({
+                url: '/User/BuildNewQuizz',
+                type: "GET",
+                success: function (data) {
+                    $("#body").html(data);
+                },
+                error: function (error) {
+                    alert("Something wrong happened, plz try again later...");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<img src="@Url.Content("~\\AppFiles\\Images\\60111.jpg")" alt="the pic is here">
+<p class="fs-4" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
+<p>@Model.UserName</p>
+@{
+    if (!Model.Role)
+    {
+        <p>User</p>
+    }
+    else
+    {
+        <p>Admin</p>
+    }
+
+    <button id="addquizz" style="background-color: #111; border:none"><div class="btn btn-dark rounded-5 p-3" style="margin-top: 2rem;"><img src="~/AppFiles/Images/plus.png" style="width: 50px; height: 50px; margin: 0;" /> New Assignment</div></button>
+}

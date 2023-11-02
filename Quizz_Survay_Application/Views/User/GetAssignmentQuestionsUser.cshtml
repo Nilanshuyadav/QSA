@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.QuestionModel>
+
+@{
+    ViewBag.Title = "GetAssignmentQuestionsUser";
+    Layout = null;
+    int cnt = 1;
+}
+
+
+<script>
+    $(document).ready(function () {
+        var data = @Html.Raw(Json.Encode(Model));
+
+        $.each(data, function (index, item) {
+            $("#" + item.Ans_Op_Id + " input[name='" + item.Q_Id + "']").prop("checked", true);
+        });
+
+        $("#btngetassignmentquestionsuser").click(function () {
+
+            $.each(data, function (index, item) {
+                var q_id = item.Q_Id;
+                var st = $('input[name="' + q_id + '"]:checked').parent().attr('id');
+
+                item.Q_Text = $("#" + q_id + "q").html();
+                item.Ans_Op_Id = st;
+
+                $.each(item.Options, function (ind, itm) {
+                    itm.Options = $("#" + itm.O_id + " span").html();
+
+                    if (itm.O_id == st) {
+                        itm.Marks = true;
+                    }
+                    else {
+                        itm.Marks = false;
+                    }
+                });
+            });
+
+            $.ajax({
+                url: "/user/UpdateAssignment",
+                type: "POST",
+                data: { res: data },
+                success: function (success) {
+                    alert("Quizz Updated...");
+                    location.reload(true);
+                },
+                error: function (error) {
+                    alert("Something happened, plz try again");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+<style>
+    .containerGetAssignmentQuestions {
+        margin-bottom: 10%;
+    }
+
+    .containerbtn {
+        margin: auto;
+        width: 50%;
+    }
+</style>
+
+
+
+<div class="containerGetAssignmentQuestions">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4 border-dark question" style="width:45rem">
+            <div class="card-header text-dark">
+                Q.@cnt
+            </div>
+            <div class="card-body">
+                @{ 
+                    var id_q = item.Q_Id + "q";
+                }
+                <h5 class="card-title text-dark mb-5" id=@id_q contentEditable="true">@item.Q_Text</h5>
+                
+                @{var n = item.Options.Count;
+                }
+
+                <table class="table table-borderless">
+                    @for (var i = 0; i < n;)
+                    {
+
+
+                        <tr>
+                            @if (i < n)
+                            {
+                                <td>
+                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                        <span contenteditable="true"> @item.Options[i++].Options</span>
+                                    </label>
+                                </td>
+                            }
+
+                            @if (i < n)
+                            {
+                                <td>
+                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                        <span contenteditable="true"> @item.Options[i++].Options</span>
+                                    </label>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+        cnt = cnt + 1;
+    }
+
+
+    <div class="containerbtn"><input id="btngetassignmentquestionsuser" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Submit"></div>
+</div>
+

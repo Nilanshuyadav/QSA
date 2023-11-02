@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <style>
+
+        #navbar {
+            display: flex;
+            background-color: #111;
+            color: white;
+            padding: 13px;
+        }
+
+        #navFirstDiv {
+            flex: 20%;
+            text-align: center;
+        }
+
+        #navSecondDiv {
+            flex: 80%;
+            text-align: right;
+            display: inline-block;
+        }
+
+        .form-control {
+            display: inline-block;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="navbar">
+        <div id="navFirstDiv">
+           <h3> @Html.ActionLink("Quizz Application", "Index", "SignIn", new { area = "" }, new {@class="navbar-brand"})</h3>
+        </div>
+        <div id="navSecondDiv">
+            <form class="form-inline">
+                <span class="searchbtn">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </span>
+
+                <button class="btn btn-danger logoutbtn">Logout</button>
+                <button class="btn btn-info loginbtn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

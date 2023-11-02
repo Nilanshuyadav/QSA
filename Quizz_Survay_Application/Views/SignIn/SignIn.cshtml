@@ -1,0 +1,165 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.SignInModel>
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        var isBlocked = false;
+        var currUser;
+
+        $("#otpcontainer").hide();
+
+        $("#btnemail").click(function () {
+            if (isBlocked) {
+                alert("Your UserName is Blocked, plz contact admin");
+                return false;
+            }
+
+            return VerifyEmail();
+        });
+
+        $(".resend").click(function () {
+            if (isBlocked) {
+                alert("Your UserName is Blocked, plz contact admin");
+                return false;
+            }
+
+            return VerifyEmail();
+        });
+
+        $("#btnotp").click(function () {
+            return VerifyOTP();
+        });
+
+        function VerifyOTP() {
+            var EnteredOTP_ = $("#enteredotp").val();
+
+            $.ajax({
+                url: "/SignIn/Validate",
+                type: "GET",
+                data: { EnteredOTP: EnteredOTP_, Email: $("#enteremail").val().toLowerCase() },
+                success: function (data) {
+                    if (data == 1) {
+                        if (!currUser.Role) {
+                            location.href = "@Url.Action("Index", "User")";
+                        }
+                        else {
+                            alert("Redirect to Admin DashBoard");
+                        }
+
+                    }
+                    else if (data == 2) {
+                        alert("not matched");
+                    }
+                    else if (data == 3) {
+                        alert("Expired");
+                    }
+                    else {
+                        alert("Blocked");
+                        isBlocked = true;
+                    }
+                },
+                error: function (data) {
+                    alert("something happened, Plz try again...");
+                }
+            });
+
+            return false;
+        };
+
+        function VerifyEmail() {
+            let EnteredEmail = $("#enteremail").val().toLowerCase();
+
+            var users = @Html.Raw(Json.Encode(Model));
+            var found = false;
+
+            $.each(users, function (index, item) {
+                if (item.UserName === EnteredEmail) {
+                    currUser = item;
+                    $.ajax({
+                        url: "/SignIn/ValidateEmail",
+                        type: "POST",
+                        data: { email: EnteredEmail },
+                        success: function (data) {
+                            if (data == 1) {
+                                alert("blocked user");
+                            }
+                            else {
+                                $("#loading").hide();
+                                $("#btnemail").hide();
+                                $("#otpcontainer").show();
+                            }
+                        },
+                        error: function (error) {
+                            alert("Something strange happended...PLz try again");
+                        }
+                    });
+
+                    found = true;
+                }
+            });
+
+            if (found == false) {
+                alert("not found");
+            }
+            return false;
+        }
+
+    });
+
+</script>
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <p>Please login to your Account </p>
+                    <input class="form-control" id="enteremail" placeholder="Enter Email" />
+                </div>
+            </div>
+
+            <div class="d-grid gap-1 col-10 ml-2 mt-2 p-2">
+                <button class="btn btn-success btn-sm" type="button" id="btnemail">Login</button>
+
+            </div>
+        </div>
+
+        <div id="otpcontainer">
+            <div>
+
+                <div class="col-lg-12 d-flex align-items-center justify-content-center">
+                    <input class="form-control" id="enteredotp" placeholder="Enter OTP" /> <input type="submit" class="ms-3 resend rounded-2 text-bg-secondary border-0" value="Resend">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!--<div class="col-md-offset-2 col-md-10" style="margin-left:5px;">-->
+                @*<input type="submit" id="btnotp" value="Submit" class="m-4 btn btn-outline-primary btn-default" />*@
+                <!--<button class="btn btn-success btn-sm" type="button" id="btnotp">Login</button>
+                </div>-->
+
+                <div class="d-grid gap-1 col-10 ml-2 mt-2 p-2">
+                    <button class="btn btn-success btn-sm" type="button" id="btnotp">Login</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
