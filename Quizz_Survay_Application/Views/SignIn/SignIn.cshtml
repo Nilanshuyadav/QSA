@@ -46,18 +46,26 @@
 
                     }
                     else if (data == 2) {
-                        alert("not matched");
+                        /* alert("not matched");*/
+                        $("#notMatched").show();
+                        setTimeout(function () { $("#notMatched").fadeOut(); }, 2000);
                     }
                     else if (data == 3) {
-                        alert("Expired");
+                        /* alert("Expired");*/
+                        $("#otpExpired").show();
+                        setTimeout(function () { $("#otpExpired").fadeOut(); }, 2000);
                     }
                     else {
-                        alert("Blocked");
+                        //alert("Blocked");
+                        $("#blockedUser").show();
+
                         isBlocked = true;
                     }
                 },
                 error: function (data) {
-                    alert("something happened, Plz try again...");
+                    //alert("something happened, Plz try again...");
+                    $("#errorMsg").show();
+                    setTimeout(function () { $("#errorMsg").fadeOut(); }, 2000);
                 }
             });
 
@@ -72,14 +80,18 @@
 
             $.each(users, function (index, item) {
                 if (item.UserName === EnteredEmail) {
+                    $("#loading").show();
                     currUser = item;
                     $.ajax({
-                        url: "/SignIn/ValidateEmail",
+                        url: "/SignIn/ValidateEmailSignIn",
                         type: "POST",
                         data: { email: EnteredEmail },
                         success: function (data) {
                             if (data == 1) {
-                                alert("blocked user");
+                             /*   alert("blocked user");*/
+                                $("#blockedUser").show();
+                                $("#loading").hide();
+                                setTimeout(function () { $("#blockedUser").fadeOut(); }, 2000);
                             }
                             else {
                                 $("#loading").hide();
@@ -88,7 +100,10 @@
                             }
                         },
                         error: function (error) {
-                            alert("Something strange happended...PLz try again");
+                            /*  alert("Something strange happended...PLz try again");*/
+                            $("#errorMsg2").show();
+                            $("#loading").hide();
+                            setTimeout(function () { $("#errorMsg2").fadeOut(); }, 2000);
                         }
                     });
 
@@ -97,13 +112,13 @@
             });
 
             if (found == false) {
-                alert("not found");
+                /* alert("not found");*/
+                $("#notFound").show();
+                setTimeout(function () { $("#notFound").fadeOut(); }, 2000);
             }
+
             return false;
         }
-
-
-
     });
 
 </script>
@@ -146,6 +161,22 @@
                 </div>
             </div>
         </div>
+        <div class="alert alert-danger hideerrormessage" id="errorMsg2" role="alert">
+            Something went wrong, Please try again
+        </div>
+        <div class="alert alert-danger hideerrormessage" id="notFound" role="alert">
+            User Not Found
+        </div>
+        <div class="alert alert-danger hideerrormessage" id="blockedUser" role="alert">
+            Your Account has been Blocked!
+        </div>
+        <div class="alert alert-danger hideerrormessage" id="otpExpired" role="alert">
+            OTP Expired!
+        </div>
+        <div class="alert alert-danger hideerrormessage" id="notMatched" role="alert">
+            Wrong OTP
+        </div>
+
     </div>
 }
 

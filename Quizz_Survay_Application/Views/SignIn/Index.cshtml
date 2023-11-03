@@ -15,8 +15,8 @@
     <div id="loading" class="spinner-border"></div>
 </div>
 
-<section class="min-vh-90 mt-5">
-    <div class="container p-5 my-5  text-black">
+<section class="container-fluid mt-5">
+    <div class="container  text-black">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
@@ -54,6 +54,18 @@
         $(document).ready(function () {
             $("#registerUser").hide();
             $("#loading").hide();
+            $("#errorMsg").hide();
+            $("#errorMsg2").hide();
+            $("#alertMsg").hide();
+            $("#notFound").hide();
+            $("#blockedUser").hide();
+            $("#blockedUserR").hide();
+            $("#otpExpired").hide();
+            $("#otpExpiredR").hide();
+            $("#notMatched").hide();
+            $("#notMatchedR").hide();
+
+
             $("#registerLoginButton").click(function () {
                 $("#signinPage").hide();
                 $("#registerUser").show();
@@ -64,11 +76,12 @@
                 $("#registerUser").hide();
 
             });
-            $("#btnemail").click(function () {
+            /*$("#btnemail").click(function () {
                 $("#loading").show();
-            });
+            });*/
             $("#btnregister").click(function () {
                 $("#loading").show();
+                
             });
 
         })

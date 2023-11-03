@@ -55,7 +55,9 @@
             localStorage.removeItem("quizStartTime");
             clearInterval(timerInterval);
 
+
             alert("Your Score is : " + score);
+            
 
             $(':radio:not(:checked)').attr('disabled', true);
             $("#btngetassignmentquestions").attr("disabled", true);

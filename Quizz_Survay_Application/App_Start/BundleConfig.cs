@@ -25,6 +25,8 @@ namespace Quizz_Survay_Application
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+           
         }
     }
 }

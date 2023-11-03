@@ -52,9 +52,25 @@ namespace Quizz_Survay_Application.Controllers
 
         public int ValidateEmail(string email)
         {
-            if (repoObj.ValidateEmail(email) == 1)
+            var res = repoObj.ValidateEmail(email);
+
+            if (res == 1 || res == 0)
             {
                 return 1;
+            }
+
+            TempData["email"] = email;
+
+            return SendOTP();
+        }
+
+        public int ValidateEmailSignIn(string email)
+        {
+            var res = repoObj.ValidateEmail(email);
+
+            if(res == 1)
+            {
+                return res;
             }
 
             TempData["email"] = email;

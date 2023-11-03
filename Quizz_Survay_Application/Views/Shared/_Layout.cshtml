@@ -7,8 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-
+   
     <style>
 
         #navbar {
@@ -33,7 +32,8 @@
             display: inline-block;
         }
 
-        
+        .input-group {
+        }
     </style>
 
 </head>
@@ -45,8 +45,8 @@
         </div>
         <div id="navSecondDiv">
             <form class="form-inline">
-                
-                    <span class="searchbtn ">
+
+                @*<span class="searchbtn ">
                         <input class="form-control rounded-3 " type="search" placeholder="Search" aria-label="Search">
                     </span>
 
@@ -54,10 +54,11 @@
                         <button class="btn btn-secondary btn-sm " type="submit">
                             <i class="fas fa-search"></i>
                         </button>
-                    </span>
+                    </span>*@
                 
-                <button class="btn btn-danger btn-sm logoutbtn">Logout</button>
-                <button class="btn btn-primary btn-sm loginbtn">Login</button>
+                        <button class="btn btn-danger btn-sm logoutbtn">Logout</button>
+                        <button class="btn btn-primary btn-sm loginbtn">Login</button>
+
             </form>
         </div>
     </div>
@@ -69,6 +70,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+   
+   
 </body>
 </html>
 
