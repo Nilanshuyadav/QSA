@@ -16,8 +16,11 @@
         var isBlocked = false;
 
         $("#btnregister").click(function () {
+            $("#loading").show();
+
             if (isBlocked) {
-                alert("Your UserName is Blocked, plz contact admin");
+                $("#blockedUserR").show();
+                $("#loading").hide();
                 return false;
             }
 
@@ -41,18 +44,25 @@
                         $("#RegisterForm").submit();
                     }
                     else if (data == 2) {
-                        alert("not matched");
+                        $("#notMatchedR").show();
+                        $("#loading").hide();
+                        setTimeout(function () { $("#notMatchedR").fadeOut(); }, 2000);
                     }
                     else if (data == 3) {
-                        alert("Expired");
+                        $("#otpExpiredR").show();
+                        $("#loading").hide();
+                        setTimeout(function () { $("#otpExpiredR").fadeOut(); }, 2000);
                     }
                     else {
-                        alert("Blocked");
+                        $("#blockedUserR").show();
+                        $("#loading").hide();
                         isBlocked = true;
                     }
                 },
                 error: function (data) {
-                    alert("something happened, Plz try again...");
+                    $("#errorMsg").show();
+                    $("#loading").hide();
+                    setTimeout(function () { $("#errorMsg").fadeOut(); }, 2000);
                 }
             });
 
@@ -72,13 +82,22 @@
                         $("#btnregister").hide();
                         $("#loading").hide();
                     }
+                    else if (data == 0) {
+                        $("#blockedUserR").show();
+                        $("#loading").hide();
+                        isBlocked = true;
+                    }
                     else {
-                        alert("User already exists");
+                        $("#alertMsg").show();
+                        $("#loading").hide();
+                        setTimeout(function () { $("#alertMsg").fadeOut(); }, 2000);
                     }
 
                 },
                 error: function (error) {
-                    alert("Something Wrong Happened...");
+                    $("#errorMsg").show();
+                    $("#loading").hide();
+                    setTimeout(function () { $("#errorMsg").fadeOut(); }, 2000);
                 }
             });
 
@@ -143,6 +162,22 @@
 
             </div>
 
+        </div>
+        <div class="alert alert-danger" id="errorMsg" role="alert">
+            Something went wrong, Please try again
+        </div>
+        <div class="alert alert-danger" id="alertMsg" role="alert">
+            User Already Exists.
+        </div>
+
+        <div class="alert alert-danger" id="blockedUserR" role="alert">
+            Your Account has been Blocked!
+        </div>
+        <div class="alert alert-danger" id="otpExpiredR" role="alert">
+            OTP Expired!
+        </div>
+        <div class="alert alert-danger" id="notMatchedR" role="alert">
+            Wrong OTP
         </div>
     </div>
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
+
     int cnt = 1;
 }
 
@@ -10,9 +11,10 @@
 <script>
 
     $(document).ready(function () {
-        $(".searchbtn").show();
+        $(".searchbtn").hide();
         $(".loginbtn").show();
         $(".logoutbtn").hide();
+
 
         $(".btnhomeindex").click(function () {
             var id = $(this).attr('id');
@@ -32,68 +34,122 @@
 
 <style>
 
-    #welcometext{
+    #welcometext {
         width: 50%;
         margin: auto;
         margin-bottom: 10%;
     }
 
+    .input-group {
+        margin-left: 70%;
+    }
 </style>
 
 
 
-
-
-<div id="welcometext"><h1>Hello, Welcome to The quizz application...</h1></div>
-
-<table class="table table-hover align-middle mb-0 bg-white">
-    <thead class="bg-light">
-        <tr>
-            <th>#</th>
-            <th>Assignment Name</th>
-            <th>Difficulty</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <p class="fw-normal mb-1">@cnt</p>
-                </td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+<section class="min-vh-90 mt-5">
+    <div id="landingPage">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="~/AppFiles/Images/Landing-Page.png"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form>
+                    <h2>Hello, Do you want to attempt a Quiz?</h2>
+                    <div class="align-content-center mt-3">
+                        <button type="button" class="btn btn-primary btn-lg" id="startQuizbtn">Start Quiz</button>
                     </div>
-                </td>
-                <td>
-                    @if (item.As_Difficulty == "Easy")
-                    {
-                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
-                    else if (item.As_Difficulty == "Medium")
-                    {
-                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
-                    else
-                    {
-                        <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                    }
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.As_Category)
-                </td>
-                <td>
-                    <button type="button" class="btn btnhomeindex btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
-                        Start
-                    </button>
-                </td>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="assignmentList">
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" class="form-control rounded-1" placeholder="Search Assignment">
+        <div class="input-group-append">
+            <button class="btn btn-secondary" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>#</th>
+                <th>Assignment Name</th>
+                <th>Difficulty</th>
+                <th>Category</th>
+                <th>Created By</th>
+                <th>Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p class="fw-normal mb-1">@cnt</p>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                        </div>
+                    </td>
+                    <td>
+                        @if (item.As_Difficulty == "Easy")
+                        {
+                            <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
+                        else if (item.As_Difficulty == "Medium")
+                        {
+                            <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                        }
 
-            cnt = cnt + 1;
-        }
-    </tbody>
-</table>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.As_Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btnhomeindex btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
+                            Start
+                        </button>
+                    </td>
+                </tr>
+
+                cnt = cnt + 1;
+            }
+        </tbody>
+    </table>
+
+</section>
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#assignmentList").hide();
+
+        $("#startQuizbtn").click(function () {
+
+            $("#assignmentList").show();
+
+            $('html, body').animate({
+                scrollTop: $("#assignmentList").offset().top
+            }, 1000);
+        });
+
+
+    });
+</script>

@@ -56,28 +56,50 @@
                     </div>
                     <div class="text-center text-lg-start mt-4 pt-2" id="registerUser">
                         @Html.Action("RegisterUser")
+                        <div class="d-flex pb-5 mt-2 p-2">
+                            <p class="mb-0 me-2">Already have an account?</p>
+                            <button type="button" class="btn btn-outline-danger btn-sm" id="userLoginButton">Login</button>
+                        </div>
                     </div>
 
                 </form>
             </div>
         </div>
     </div>
+</section>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
         $(document).ready(function () {
             $("#registerUser").hide();
             $("#loading").hide();
+            $("#errorMsg").hide();
+            $("#errorMsg2").hide();
+            $("#alertMsg").hide();
+            $("#notFound").hide();
+            $("#blockedUser").hide();
+            $("#blockedUserR").hide();
+            $("#otpExpired").hide();
+            $("#otpExpiredR").hide();
+            $("#notMatched").hide();
+            $("#notMatchedR").hide();
+
+
             $("#registerLoginButton").click(function () {
                 $("#signinPage").hide();
                 $("#registerUser").show();
 
             });
-            $("#btnemail").click(function () {
-                $("#loading").show();
+            $("#userLoginButton").click(function () {
+                $("#signinPage").show();
+                $("#registerUser").hide();
+
             });
-            $("#btnregister").click(function () {
+            /*$("#btnemail").click(function () {
                 $("#loading").show();
-            });
+            });*/
+            /*$("#btnregister").click(function () {
+                $("#loading").show();
+            });*/
 
         })
 
