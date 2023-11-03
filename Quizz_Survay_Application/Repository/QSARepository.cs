@@ -81,7 +81,7 @@ namespace Quizz_Survay_Application.Repository
 
         IEnumerable<SignInModel> IQSARepository.GetAllUserSignIn()
         {
-            return DapperORM.ReturnList<SignInModel>("GetAllUsers", null);
+            return DapperORM.ReturnList<SignInModel>("GetAllUsersSignIn", null);
         }
 
         IEnumerable<RegisterModel> IQSARepository.GetAllUser()
