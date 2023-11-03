@@ -56,7 +56,7 @@ namespace Quizz_Survay_Application.Controllers
 
             if (res == 1 || res == 0)
             {
-                return 1;
+                return res;
             }
 
             TempData["email"] = email;
@@ -68,7 +68,7 @@ namespace Quizz_Survay_Application.Controllers
         {
             var res = repoObj.ValidateEmail(email);
 
-            if(res == 1)
+            if(res == 0)
             {
                 return res;
             }
