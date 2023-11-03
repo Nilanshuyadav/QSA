@@ -75,6 +75,11 @@ namespace Quizz_Survay_Application.Repository
             return DapperORM.ReturnList<SignInModel>("GetAllUsers", null);
         }
 
+        IEnumerable<SignInModel> IQSARepository.GetAllUserSignIn()
+        {
+            return DapperORM.ReturnList<SignInModel>("GetAllUsersSignIn", null);
+        }
+
         IEnumerable<AssignmentsOfUserModel> IQSARepository.GetAssignmentsOfUser(string UserName)
         {
             DynamicParameters dp = new DynamicParameters();

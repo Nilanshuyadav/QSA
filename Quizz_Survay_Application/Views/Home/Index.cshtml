@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
+    
     int cnt = 1;
 }
 
@@ -10,9 +11,10 @@
 <script>
 
     $(document).ready(function () {
-        $(".searchbtn").show();
+        $(".searchbtn").hide();
         $(".loginbtn").show();
         $(".logoutbtn").hide();
+       
 
         $(".btnhomeindex").click(function () {
             var id = $(this).attr('id');

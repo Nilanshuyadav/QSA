@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-   
+
     <style>
 
         #navbar {
@@ -32,8 +32,7 @@
             display: inline-block;
         }
 
-        .input-group {
-        }
+        
     </style>
 
 </head>
@@ -41,25 +40,27 @@
 
     <div id="navbar">
         <div id="navFirstDiv">
-            <h3> @Html.ActionLink("Quizz Application", "Index", "SignIn", new { area = "" }, new { @class = "navbar-brand" })</h3>
+            <h3> @Html.ActionLink("Quiz Application", "Index", "SignIn", new { area = "" }, new { @class = "navbar-brand" })</h3>
         </div>
         <div id="navSecondDiv">
             <form class="form-inline">
-
-                @*<span class="searchbtn ">
+                <div class="searchbtn" style="display:inline">
+                    <span class="searchbtn">
                         <input class="form-control rounded-3 " type="search" placeholder="Search" aria-label="Search">
+
+                        <span>
+                            <button class="btn btn-secondary btn-sm " type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </span>
                     </span>
 
-                    <span>
-                        <button class="btn btn-secondary btn-sm " type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </span>*@
-                
-                        <button class="btn btn-danger btn-sm logoutbtn">Logout</button>
-                        <button class="btn btn-primary btn-sm loginbtn">Login</button>
+                  </div>
 
-            </form>
+                    <button class="btn btn-danger btn-sm logoutbtn">Logout</button>
+                    <button class="btn btn-primary  loginbtn">Login</button>
+
+</form>
         </div>
     </div>
 
@@ -71,8 +72,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-   
-   
+
+
 </body>
 </html>
 
