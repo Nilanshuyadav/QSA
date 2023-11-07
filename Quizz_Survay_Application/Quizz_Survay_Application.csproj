@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppFiles\Images\60111.jpg" />
+    <Content Include="AppFiles\Images\edit-solid.svg" />
     <Content Include="AppFiles\Images\Landing-Page.png" />
     <Content Include="AppFiles\Images\plus.png" />
     <Content Include="AppFiles\Images\testing_profile_Image.png" />
