@@ -51,10 +51,10 @@
         $("#btnbuildnewquizzquestion").click(function () {
             cnt++;
             var newQuestion =
-                '<div class="card mb-4 border-dark question" style="width:45rem">' +
-                '<div class="card-header text-dark">' + cnt + '</div>' +
+                '<div class="card border-secondary mb-4 question" style="width:52rem">' +
+                '<div class="d-flex justify-content-between align-items-center card-header bg-secondary text-white">Question ' + cnt + '</div>' +
                 '<div class="card-body">' +
-                '<div class="d-inline"><h5 class="card-title text-dark mb-5 d-inline" contentEditable="true" id="' + cnt + 'questiontext">Question ' + cnt + '</h5></div>' +
+                '<div class="d-inline"><input class="card-title form-control text-dark mb-7 d-inline" placeholder="Enter the Question" contentEditable="true" id="' + cnt + 'questiontext"> ' + cnt + '/input></div>' +
                 '<select class="custom-select d-inline end-0 questionType" id="' + cnt + 'questiontype">' +
                 '<option value="disables" disabled selected>Select</option>' +
                 '<option value="tf">1. True/False</option>' +
@@ -128,19 +128,22 @@
     }
 </style>
 
-<div id="assignmentinfobuildnewquizz">
-    <input type="text" style="width: 50%; padding: 5px;" placeholder="Assignment Name" id="assignmentnamebuildnewquizz" />
+<form class="mt-6">
+    <div id="assignmentinfobuildnewquizz">
+        <input type="text"  class="form-control bg-dark bg-opacity-10" style="  width: 80%; padding: 5px;" placeholder="Assignment Name" id="assignmentnamebuildnewquizz" />
+        
+        <input type="text" class="form-control  bg-dark bg-opacity-10" style="width: 30%; padding: 5px; margin-left:60px " placeholder="Category" id="assignmentcategorybuildnewquizz" />
 
-    <input type="text" style="width: 200px; padding: 5px; margin-left:35px;" placeholder="Category" id="assignmentcategorybuildnewquizz" />
+        <select class="form-control  bg-dark bg-opacity-10 custom-select" id="assignmentdifficultybuildnewquizz" style="width: 15%; margin-left: 60px">
+            <option value="" disabled selected>Select Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
 
-    <select class="custom-select d-inline end-0 ms-5" id="assignmentdifficultybuildnewquizz">
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-    </select>
-</div>
-
-<div id="containerbuildnewquizz">
+    </div>
+</form>
+<div id="containerbuildnewquizz" class="mt-4 ">
 </div>
 
 <div style="width:35%; margin:auto;" id="btnbuildnewquizzquestion">

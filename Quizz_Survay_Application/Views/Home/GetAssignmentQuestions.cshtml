@@ -113,8 +113,8 @@
 
 <style>
     .questioncontainer{
-        width: 60%;
-        margin: auto;
+        width: 70%;
+        margin-left:110px;
     }
 
     .containerGetAssignmentQuestions {
@@ -124,6 +124,7 @@
     .containerbtn {
         width: 50%;
         margin: auto;
+        
     }
 
     .timersection{
@@ -141,8 +142,8 @@
     <div class="containerGetAssignmentQuestions">
         @foreach (var item in Model)
         {
-            <div class="card mb-4 border-dark question" style="width:45rem">
-                <div class="card-header text-dark">
+            <div class="card mb-4 border-info question" style="width:45rem">
+                <div class="card-header bg-info text-dark">
                     Q.@cnt
                 </div>
                 <div class="card-body">
@@ -183,7 +184,9 @@
         }
 
 
-        <div class="containerbtn"><input id="btngetassignmentquestions" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-dark" value="Submit"></div>
+        <div class="containerbtn">
+        <input id="btngetassignmentquestions" class="btn btn-info btn-outline-info rounded-pill fw-bold text-dark" value="Submit">
+        </div>
 
     </div>
 

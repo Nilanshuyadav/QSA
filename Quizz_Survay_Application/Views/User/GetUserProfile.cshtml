@@ -18,7 +18,7 @@
                     $("#body").html(data);
                 },
                 error: function (error) {
-                    alert("Something wrong happened, plz try again later...");
+                    alert("Something wrong happened, Please try again later");
                 }
             });
         });
@@ -34,7 +34,7 @@
 
 
 <img src="@Url.Content("~\\AppFiles\\Images\\60111.jpg")" alt="the pic is here">
-<p class="fs-4" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
+<p class="fs-3" style="margin-top: 45px;">@Model.FirstName @Model.LastName</p>
 <p>@Model.UserName</p>
 @{
     if (!Model.Role)
@@ -46,5 +46,10 @@
         <p>Admin</p>
     }
 
-    <button id="addquizz" style="background-color: #111; border:none"><div class="btn btn-dark rounded-5 p-3" style="margin-top: 2rem;"><img src="~/AppFiles/Images/plus.png" style="width: 35px; height: 35px; margin: 0;" /> New Assignment</div></button>
+    <button id="addquizz" style="background-color: #111; border:none">
+    <div class="btn btn-sm btn-dark rounded-5 p-3" style="margin-top: 2rem;">
+        <img src="~/AppFiles/Images/plus.png" style="width: 35px; height: 35px; margin: 0;" /> 
+        New Assignment
+    </div>
+    </button>
 }
