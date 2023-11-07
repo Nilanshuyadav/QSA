@@ -11,6 +11,7 @@
         $(".logoutbtn").show();
         $(".searchbtn").show();
         $(".loginbtn").hide();
+
     </script>
 
 
@@ -60,18 +61,16 @@
 
 </head>
 <body>
-
-    <div class="split left">
-        <div class="centered" style="top: 35%" id="leftpart">
-            @Html.Action("GetAdminProfile")
+        <div class="split left">
+            <div class="centered" style="top: 35%" id="leftpart">
+                @Html.Action("GetAdminProfile")
+            </div>
         </div>
-    </div>
 
-    <div class="split right" style="width:80%">
-        <div style="padding-left:4%" id="rightpart">
-            @Html.Action("GetAllUser");
+        <div class="split right" style="width:80%">
+            <div style="padding-left:4%" id="rightpart">
+                @Html.Action("GetAllUser");
+            </div>
         </div>
-    </div>
-
 </body>
 </html>

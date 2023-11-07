@@ -37,9 +37,10 @@
 </head>
 <body>
 
+
     <div id="navbar">
         <div id="navFirstDiv">
-           <h3> @Html.ActionLink("Quizz Application", "Index", "SignIn", new { area = "" }, new {@class="navbar-brand"})</h3>
+            <h3> @Html.ActionLink("Quizz Application", "Index", "SignIn", new { area = "" }, new { @class = "navbar-brand" })</h3>
         </div>
         <div id="navSecondDiv">
             <form class="form-inline">
@@ -47,7 +48,12 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                 </span>
-
+                <button class="btn notifybtn position-relative">
+                    <i class="fa-regular fa-bell" style="color: #ffffff;"></i>
+                    <div class="rounded-circle text-bg-warning align-items-center notifyspinner position-absolute" role="status" style="width:17px; height:17px; right:0; top:0;">
+                        
+                    </div>
+                </button>
                 <button class="btn btn-danger logoutbtn">Logout</button>
                 <button class="btn btn-info loginbtn">Login</button>
             </form>
