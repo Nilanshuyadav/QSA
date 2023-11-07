@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Quizz_Survay_Application.Models.NotifyAdminModel>
+@{
+    ViewBag.Title = "notifyadmin";
+    Layout = null;
+    int cnt = 1;
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".admineditassignmentbutton", function () {
+            let selected_assignment = {
+                As_Id: $(this).closest('tr').attr('id'),
+                UserName: $.trim($(this).closest('tr').find('td').eq(1).text()),
+                As_Name: $.trim($(this).closest("tr").find("td").eq(2).text()),
+                As_Category: $.trim($(this).closest("tr").find("td").eq(4).text()),
+                As_Difficulty: $.trim($(this).closest("tr").find("td").eq(3).text()),
+            }
+
+            console.log(selected_assignment);
+
+            $.ajax({
+                url: "/admin/editnotifiedassignment",
+                type: "POST",
+                data: { selected_assignment_by_user : selected_assignment },
+                success: function (data) {
+                    alert("success");
+                    $(".bodycontainer").html(data);
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+
+        $(document).on("click", ".deleteiconadmin", function () {
+            $.ajax({
+                url: "/admin/DeleteAssignmentAdmin",
+                type: "POST",
+                data: { id: $(this).closest('tr').attr('id') },
+                success: function (data) {
+                    location.reload(true);
+                },
+                error: function (error) {
+                    alert("error is : " + error.toString());
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+<div style="width:50%; margin:auto;" class="mb-5 mt-3">
+    <h3 class="text-dark">Here Are Your Pending Requests...</h3>
+</div>
+
+
+
+<table class="table table-hover align-middle mb-0 bg-white">
+    <thead class="bg-light">
+        <tr>
+            <th>#</th>
+            <th>Raised By</th>
+            <th>Assignment Name</th>
+            <th>Difficulty</th>
+            <th>Category</th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id=@item.As_Id>
+                <td>
+                    <p class="fw-normal mb-1">@cnt</p>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        @Html.DisplayFor(modelItem => item.UserName, new { @class = "fw-bold" })
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                    </div>
+                </td>
+                <td>
+                    @if (item.As_Difficulty == "Easy")
+                    {
+                        <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else if (item.As_Difficulty == "Medium")
+                    {
+                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+                    else
+                    {
+                        <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.As_Category)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white admineditassignmentbutton" data-mdb-ripple-color="dark">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button class=" deleteiconadmin rounded-pill btn-secondary border-0"><i class="fa-solid fa-trash" style="right: 20%;"></i></button><div></div>
+                </td>
+            </tr>
+
+            cnt = cnt + 1;
+        }
+    </tbody>
+</table>

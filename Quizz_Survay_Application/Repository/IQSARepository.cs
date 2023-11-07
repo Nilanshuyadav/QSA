@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Antlr.Runtime.Tree;
 using Quizz_Survay_Application.Models;
 
 namespace Quizz_Survay_Application.Repository
@@ -22,9 +23,11 @@ namespace Quizz_Survay_Application.Repository
         void UpdateAssignment(IEnumerable<QuestionModel> res);
         void AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName);
         IEnumerable<Assignment> GetAllAssignments();
+        IEnumerable<NotifyAdminModel> notifyAssignments();
         void DeleteAssignment(int id);
         IEnumerable<RegisterModel> GetAllUser();
         void MakeAdmin(string UserToMakeAdmin);
-
+        void PublishAssignment(int As_Id);
+        int CountNotifications();
     }
 }

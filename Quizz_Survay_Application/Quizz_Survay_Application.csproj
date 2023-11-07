@@ -133,6 +133,7 @@
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\AssignmentsOfUserModel.cs" />
     <Compile Include="Models\DapperORM.cs" />
+    <Compile Include="Models\NotifyAdminModel.cs" />
     <Compile Include="Models\OptionModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -207,6 +208,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\GetAllUser.cshtml" />
     <Content Include="Views\Admin\GetAdminProfile.cshtml" />
+    <Content Include="Views\Admin\Notifyadmin.cshtml" />
+    <Content Include="Views\Admin\editnotifiedassignment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />

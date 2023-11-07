@@ -187,5 +187,23 @@ namespace Quizz_Survay_Application.Repository
 
             return DapperORM.ExecuteReturnScalar<int>("validateOTP", dp);
         }
+
+        IEnumerable<NotifyAdminModel> IQSARepository.notifyAssignments()
+        {
+            return DapperORM.ReturnList<NotifyAdminModel>("NotifyAdmin", null);
+        }
+
+        void IQSARepository.PublishAssignment(int As_Id)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@As_Id", As_Id);
+
+            DapperORM.ExecuteWithoutReturn("PublishAssignment", dp);
+        }
+
+        int IQSARepository.CountNotifications()
+        {
+            return DapperORM.ExecuteReturnScalar<int>("CountNotifications", null);
+        }
     }
 }

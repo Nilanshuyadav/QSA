@@ -5,9 +5,41 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
-    $(".loginbtn").hide();
-    $(".logoutbtn").hide();
-    $(".seachbtn").hide();
+    $(document).ready(function () {
+        setTimeout(function () { }, 10000);
+
+        $(".loginbtn").hide();
+        $(".logoutbtn").hide();
+        $(".searchbtn").hide();
+        $(".notifybtn").hide();
+
+        $("#registerUser").hide();
+        $("#loading").hide();
+        $("#errorMsg").hide();
+        $("#errorMsg2").hide();
+        $("#alertMsg").hide();
+        $("#notFound").hide();
+        $("#blockedUser").hide();
+        $("#blockedUserR").hide();
+        $("#otpExpired").hide();
+        $("#otpExpiredR").hide();
+        $("#notMatched").hide();
+        $("#notMatchedR").hide();
+
+
+        $("#registerLoginButton").click(function () {
+            $("#signinPage").hide();
+            $("#registerUser").show();
+
+        });
+        $("#userLoginButton").click(function () {
+            $("#signinPage").show();
+            $("#registerUser").hide();
+
+        });
+
+    })
+
 </script>
 
 
@@ -52,40 +84,3 @@
         </div>
     </div>
 </section>
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#registerUser").hide();
-            $("#loading").hide();
-            $("#errorMsg").hide();
-            $("#errorMsg2").hide();
-            $("#alertMsg").hide();
-            $("#notFound").hide();
-            $("#blockedUser").hide();
-            $("#blockedUserR").hide();
-            $("#otpExpired").hide();
-            $("#otpExpiredR").hide();
-            $("#notMatched").hide();
-            $("#notMatchedR").hide();
-
-
-            $("#registerLoginButton").click(function () {
-                $("#signinPage").hide();
-                $("#registerUser").show();
-
-            });
-            $("#userLoginButton").click(function () {
-                $("#signinPage").show();
-                $("#registerUser").hide();
-
-            });
-            /*$("#btnemail").click(function () {
-                $("#loading").show();
-            });*/
-            /*$("#btnregister").click(function () {
-                $("#loading").show();
-            });*/
-
-        })
-
-    </script>
