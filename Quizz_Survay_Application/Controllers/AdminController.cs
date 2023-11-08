@@ -33,13 +33,32 @@ namespace Quizz_Survay_Application.Controllers
 
         public ActionResult GetAllUser()
         {
-            return View(repoObj.GetAllUser());
+            var res = repoObj.GetAllUser();
+            return View(res);
         }
 
         [HttpPost]
-        public void makeadmin(string UserToMakeAdmin)
+        public void DisableUser(string DisableUser_)
+        {
+            repoObj.DisableUser(DisableUser_);
+        }
+
+        [HttpPost]
+        public void EnableUser(string DisableUser_)
+        {
+            repoObj.EnableUser(DisableUser_);
+        }
+
+        [HttpPost]
+        public void MakeAdmin(string UserToMakeAdmin)
         {
             repoObj.MakeAdmin(UserToMakeAdmin);
+        }
+
+        [HttpPost]
+        public void MakeUser(string AdminToMakeUser)
+        {
+            repoObj.MakeUser(AdminToMakeUser);
         }
 
         [HttpGet]

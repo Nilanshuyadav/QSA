@@ -12,5 +12,6 @@ namespace Quizz_Survay_Application.Models
         public string LastName { get; set; }
         public bool Role { get; set; }
         public Nullable<DateTime> LastLog {  get; set; }
+        public bool disabled {  get; set; }
     }
 }

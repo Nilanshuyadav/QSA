@@ -16,7 +16,7 @@ namespace Quizz_Survay_Application.Controllers
         public UserController()
         {
             repoObj = new QSARepository();
-            CurrUser = "vaishnavipandey2606@gmail.com";
+            CurrUser = "yadavnilanshu7011@gmail.com";
         }
 
         // GET: User
@@ -55,21 +55,22 @@ namespace Quizz_Survay_Application.Controllers
             
             TempData["assignName"] = selected_assignment.As_Name;
             TempData["assignDifficulty"] = selected_assignment.As_Difficulty;
-             TempData["assignCategory"] = selected_assignment.As_Category;
-           
+            TempData["assignCategory"] = selected_assignment.As_Category;
+            TempData["assignID"] = selected_assignment.As_Id;
 
             return View(QuestionsOfAssignment);
         }
 
 
         [HttpPost]
-        public void UpdateAssignment(IEnumerable<QuestionModel> res)
+        public void UpdateAssignment(IEnumerable<QuestionModel> res, int As_Id)
         {
             repoObj.UpdateAssignment(res);
+            repoObj.UnpublishAssignment(As_Id);
             return;
         }
 
-        
+
         public ActionResult BuildNewQuizz()
         {
             return View();

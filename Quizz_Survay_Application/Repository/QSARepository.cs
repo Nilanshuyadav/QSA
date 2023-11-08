@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using Dapper;
 using Quizz_Survay_Application.Models;
@@ -204,6 +205,38 @@ namespace Quizz_Survay_Application.Repository
         int IQSARepository.CountNotifications()
         {
             return DapperORM.ExecuteReturnScalar<int>("CountNotifications", null);
+        }
+
+        void IQSARepository.MakeUser(string AdminToMakeUser)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@UserName", AdminToMakeUser);
+
+            DapperORM.ExecuteWithoutReturn("MakeUser", dp);
+        }
+
+        void IQSARepository.DisableUser(string UserName)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@UserName", UserName);
+
+            DapperORM.ExecuteWithoutReturn("DisableUser", dp);
+        }
+
+        void IQSARepository.EnableUser(string UserName)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@UserName", UserName);
+
+            DapperORM.ExecuteWithoutReturn("EnableUser", dp);
+        }
+
+        void IQSARepository.UnpublishAssignment(int As_Id)
+        {
+            DynamicParameters dp = new DynamicParameters();
+            dp.Add("@As_Id", As_Id);
+
+            DapperORM.ExecuteWithoutReturn("UnpublishAssignment", dp);
         }
     }
 }
