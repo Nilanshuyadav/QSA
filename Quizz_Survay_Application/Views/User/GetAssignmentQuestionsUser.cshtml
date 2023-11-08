@@ -25,7 +25,8 @@
                 var q_id = item.Q_Id;
                 var st = $('input[name="' + q_id + '"]:checked').parent().attr('id');
 
-                item.Q_Text = $("#" + q_id + "q").html();
+                item.Q_Text = $("#" + q_id + "q").val();
+
                 item.Ans_Op_Id = st;
 
                 $.each(item.Options, function (ind, itm) {
@@ -39,10 +40,12 @@
                     }
                 });
             });
+
+
             $.ajax({
                 url: "/user/UpdateAssignment",
                 type: "POST",
-                data: { res: data },
+                data: { res: data , As_Id: @TempData["assignID"]},
                 success: function (success) {
                     /*alert("Quizz Updated...");*/
                     $("#quizUpdated").show();
@@ -157,7 +160,7 @@
         Quiz has been Updated
     </div>
     <div class="containerbtn">
-        <input id="btngetassignmentquestionsuser" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Submit">
+        <input id="btngetassignmentquestionsuser" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Update">
     </div>
 </div>
 

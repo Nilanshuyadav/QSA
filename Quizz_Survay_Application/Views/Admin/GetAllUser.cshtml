@@ -21,17 +21,58 @@
             }
         });
 
-        $(".makeadmin").on('click', function () {
-            var confirmation = confirm("Are you sure you want to make this user an admin?");
-            if (confirmation) {
-                makeadminfunction(this);
-            }
+        $(".changerole").on('click', function () {
+            changerolefunction(this);
         });
 
+        $(".enabledisable").on('click', function () {
+            enabledisablefunction(this);
+        });
 
         $(".notifybtn").click(function () {
             return ShowNotifications();
         });
+
+        function enabledisablefunction(curr) {
+            var currently = $(curr).text().trim();
+            var clickeduser2 = $(curr).closest("tr").find("td").eq(1).text().trim();
+
+            if (currently === 'Disable') {
+                $.ajax({
+                    url: "/admin/DisableUser",
+                    type: "POST",
+                    data: { DisableUser_: clickeduser2 },
+                    success: function (data) {
+                        alert("done...");
+
+                        $(curr).html("Enable");
+                        $(curr).removeClass('btn-warning btn-outline-success');
+                        $(curr).addClass('btn-success btn-outline-warning');
+                    },
+                    error: function (error) {
+                        alert("error");
+                    }
+                }); 
+            }
+            else {
+                $.ajax({
+                    url: "/admin/EnableUser",
+                    type: "POST",
+                    data: { DisableUser_: clickeduser2 },
+                    success: function (data) {
+                        alert("done...");
+
+                        $(curr).html("Disable");
+                        $(curr).removeClass('btn-success btn-outline-warning');
+                        $(curr).addClass('btn-warning btn-outline-success');    
+                    },
+                    error: function (error) {
+                        alert("error");
+                    }
+                });
+            }
+        }
+
 
         function ShowNotifications() {
             $.ajax({
@@ -48,25 +89,65 @@
             return false;
         }
 
-        function makeadminfunction(curr) {
+        function changerolefunction(curr) {
+            var curr_role = $(curr).closest('tr').find('td span');
             var clickeduser = $(curr).closest("tr").find("td").eq(1).text().trim();
 
-            $.ajax({
-                url: "/admin/makeadmin",
-                type: "POST",
-                data: { UserToMakeAdmin: clickeduser },
-                success: function (data) {
-                    alert("done...");
-                    var curr_role = $(curr).closest('tr').find('td span');
+            var st;
 
-                    curr_role.html('Admin');
-                    curr_role.removeClass('bg-warning text-warning');
-                    curr_role.addClass('bg-success text-success')
-                },
-                error: function (error) {
-                    alert("error");
-                }
-            });
+            if (curr_role.html() === 'Admin') {
+                st = "Admin to User";
+            }
+            else {
+                st = "User to Admin";
+            }
+
+            var confirmation = confirm("Are you sure you want to make this" + st);
+
+            if (!confirmation) {
+                return false;
+            }
+
+            if (curr_role.html() === 'Admin') {
+                $.ajax({
+                    url: "/admin/MakeUser",
+                    type: "POST",
+                    data: { AdminToMakeUser: clickeduser },
+                    success: function (data) {
+                        alert("done...");
+
+                        curr_role.html('User');
+                        $(".changerole").html("Make Admin");
+                        $(".chanerole").removeClass('btn-success btn-outline-warning');
+                        $(".chanerole").addClass('btn-warning btn-outline-success');
+                        curr_role.removeClass('bg-success text-success');
+                        curr_role.addClass('bg-warning text-warning');
+                    },
+                    error: function (error) {
+                        alert("error");
+                    }
+                });  
+            }
+            else {
+                $.ajax({
+                    url: "/admin/MakeAdmin",
+                    type: "POST",
+                    data: { UserToMakeAdmin: clickeduser },
+                    success: function (data) {
+                        alert("done...");
+
+                        curr_role.html('Admin');
+                        $(".changerole").html("Make User");
+                        $(".chanerole").removeClass('btn-warning btn-outline-success');
+                        $(".chanerole").addClass('btn-success btn-outline-warning');
+                        curr_role.removeClass('bg-warning text-warning');
+                        curr_role.addClass('bg-success text-success')
+                    },
+                    error: function (error) {
+                        alert("error");
+                    }
+                });    
+            }
         }
     });
 </script>
@@ -82,6 +163,7 @@
                 <th>Name</th>
                 <th>Role</th>
                 <th>LastLog</th>
+                <th>Action</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -115,13 +197,25 @@
                         @item.LastLog
                     </td>
                     <td>
-                        <button type="button" class="btn makeadmin btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark">
-                            Make Admin
-                        </button>
+                        @if (item.Role == true)
+                        {
+                            <button type="button" class="btn changerole btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make User</button>
+                        }
+                        else
+                        {
+                            <button type = "button" class="btn changerole btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make Admin</button>
+                        }
                     </td>
-                    @*<td>
-                            <button class=" deleteicon rounded-pill btn-secondary border-0"><i class="fa-solid fa-trash" style="right: 20%;"></i></button><div></div>
-                        </td>*@
+                    <td>
+                        @if (item.disabled == true)
+                        {
+                            <button type="button" class="btn enabledisable btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Enable</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn enabledisable btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Disable</button>
+                        }
+                    </td>
                 </tr>
 
                 cnt = cnt + 1;

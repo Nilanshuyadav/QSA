@@ -21,13 +21,17 @@ namespace Quizz_Survay_Application.Repository
         IEnumerable<QuestionModel> GetQuestionsOfAssignment(int As_Id);
         IEnumerable<OptionModel> GetOptionsOfQuestion(int Q_Id);
         void UpdateAssignment(IEnumerable<QuestionModel> res);
+        void UnpublishAssignment(int As_Id);
         void AddAssignment(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign, string UserName);
         IEnumerable<Assignment> GetAllAssignments();
         IEnumerable<NotifyAdminModel> notifyAssignments();
         void DeleteAssignment(int id);
         IEnumerable<RegisterModel> GetAllUser();
         void MakeAdmin(string UserToMakeAdmin);
+        void MakeUser(string AdminToMakeUser);
         void PublishAssignment(int As_Id);
         int CountNotifications();
+        void DisableUser(string  UserName);
+        void EnableUser(string UserName);
     }
 }
