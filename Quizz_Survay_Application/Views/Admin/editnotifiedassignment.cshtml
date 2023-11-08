@@ -72,15 +72,19 @@
 <div class="containerGetAssignmentQuestions">
     @foreach (var item in Model)
     {
-        <div class="card mb-4 border-dark question" style="width:45rem">
-            <div class="card-header text-dark">
+        <div class="card border-secondary mb-4 question mt-5" style="width:52rem">
+            <div class="d-flex justify-content-between align-items-center card-header bg-secondary text-white">
                 Q.@cnt
             </div>
             <div class="card-body">
                 @{
                     var id_q = item.Q_Id + "q";
                 }
-                <h5 class="card-title text-dark mb-5" id=@id_q contentEditable="true">@item.Q_Text</h5>
+                @*<h5 class="card-title text-dark mb-5" id=@id_q contentEditable="true">@item.Q_Text</h5>*@
+                <div style="display: flex; justify-content: space-between; ">
+                    <input value="@item.Q_Text" class="card-title text-dark mb-5" id=@id_q />
+                    <img src="~/AppFiles/Images/edit-solid.svg" style="width:20px;height:20px" />
+                </div>
 
                 @{var n = item.Options.Count;
                 }
@@ -121,7 +125,10 @@
     }
 
 
-    <div class="containerbtn"><input id="btngetassignmentquestionsadmin" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Approve"></div>
+
+    <div class="containerbtn">
+    <input id="btngetassignmentquestionsadmin" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Approve">
+    </div>
 </div>
 
 
