@@ -17,7 +17,7 @@
                 $(".notifyspinner").html(data);
             },
             error: function (error) {
-                alert("error");
+                alert("Notification Error...");
             }
         });
 
@@ -43,14 +43,14 @@
                     type: "POST",
                     data: { DisableUser_: clickeduser2 },
                     success: function (data) {
-                        alert("done...");
+                        alert("The User is Now Disabled...");
 
                         $(curr).html("Enable");
                         $(curr).removeClass('btn-warning btn-outline-success');
                         $(curr).addClass('btn-success btn-outline-warning');
                     },
                     error: function (error) {
-                        alert("error");
+                        location.href = "/home/Index";
                     }
                 }); 
             }
@@ -60,14 +60,14 @@
                     type: "POST",
                     data: { DisableUser_: clickeduser2 },
                     success: function (data) {
-                        alert("done...");
+                        alert("The User is Now Enabled...");
 
                         $(curr).html("Disable");
                         $(curr).removeClass('btn-success btn-outline-warning');
                         $(curr).addClass('btn-warning btn-outline-success');    
                     },
                     error: function (error) {
-                        alert("error");
+                        location.href = "/home/Index";
                     }
                 });
             }
@@ -114,7 +114,6 @@
                     type: "POST",
                     data: { AdminToMakeUser: clickeduser },
                     success: function (data) {
-                        alert("done...");
 
                         curr_role.html('User');
                         $(curr).html("Make Admin");
@@ -134,7 +133,6 @@
                     type: "POST",
                     data: { UserToMakeAdmin: clickeduser },
                     success: function (data) {
-                        alert("done...");
 
                         curr_role.html('Admin');
                         $(curr).html("Make User");

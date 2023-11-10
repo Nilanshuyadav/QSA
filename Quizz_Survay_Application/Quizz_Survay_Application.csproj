@@ -125,6 +125,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -212,6 +213,8 @@
     <Content Include="Views\Admin\Notifyadmin.cshtml" />
     <Content Include="Views\Admin\editnotifiedassignment.cshtml" />
     <Content Include="Views\Admin\BuildNewQuizzbyadmin.cshtml" />
+    <Content Include="Views\Shared\_ErrorForSQL.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />

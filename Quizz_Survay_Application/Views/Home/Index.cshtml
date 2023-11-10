@@ -132,13 +132,6 @@
             location.href = ref;
         });
 
-        $(document).on("click", ".profilebtn", function () {
-            var ref = "/User/Index/";
-
-            location.href = ref;
-            alert("Redirecting...");
-        });
-
         $(document).on("keyup", ".searchinput", function () {
             var searched_text = $(".searchinput").val().toLowerCase();
 
@@ -163,12 +156,6 @@
                 scrollTop: $("#assignmentList").offset().top
             }, 1000);
         });
-
-        //$(".loginbtn").click(function () {
-        //    location.href = "/SignIn/Index";
-        //    //location.assign = "/SignIn/Index";
-        //    alert("redirecting...")
-        //});
 
         localStorage.removeItem("quizStartTime");
         localStorage.removeItem('completed');

@@ -47,7 +47,7 @@
                     location.reload(true);
                 },
                 error: function (error) {
-                    alert("error is : " + error.toString());
+                    location.href = "/Error/Index";
                 }
             });
         }
@@ -69,7 +69,7 @@
                     $("#body").html(data);
                 },
                 error: function (data) {
-                    alert("Something wrong happened, plz try again...");
+                    location.href = "/Error/Index";
                 }
             });
         });
