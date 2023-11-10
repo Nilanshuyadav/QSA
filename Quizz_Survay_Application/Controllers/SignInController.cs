@@ -15,7 +15,7 @@ namespace Quizz_Survay_Application.Controllers
 {
     public class SignInController : Controller
     {
-        IQSARepository repoObj;
+        IQSARepository repoObj=new QSARepository();
 
         public SignInController()
         {
@@ -30,7 +30,7 @@ namespace Quizz_Survay_Application.Controllers
 
         public ActionResult SignIn()
         {
-            return View(repoObj.GetAllUserSignIn());
+           return View(repoObj.GetAllUserSignIn());
         }
 
         [HttpGet]

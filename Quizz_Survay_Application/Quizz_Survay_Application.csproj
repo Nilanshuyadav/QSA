@@ -211,11 +211,11 @@
     <Content Include="Views\Admin\GetAdminProfile.cshtml" />
     <Content Include="Views\Admin\Notifyadmin.cshtml" />
     <Content Include="Views\Admin\editnotifiedassignment.cshtml" />
+    <Content Include="Views\Admin\BuildNewQuizzbyadmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Add_\" />
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

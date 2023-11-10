@@ -31,7 +31,7 @@
 
         $(".resendOTP__").click(function () {
             $("#loading").show();
-
+            $("#enteredotpregister").val("");
             if (isBlocked) {
                 $("#blockedUserR").show();
                 $("#loading").hide();
@@ -53,7 +53,7 @@
             $.ajax({
                 url: "/SignIn/Validate",
                 type: "GET",
-                data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase() },
+                data: { EnteredOTP: EnteredOTP_, Email: $("#UserName").val().toLowerCase(), role: false },
                 success: function (data) {
                     if (data == 1) {
                         $("#RegisterForm").submit();
@@ -236,7 +236,7 @@
                 <div class="col-md-12 d-flex">
                     <input class="form-control" id="enteredotpregister" placeholder="Enter OTP" />
                     <div id="timer__" class="btn btn-outline-info rounded-2 btn-sm ms-2" style="height:30px;position:relative;top:7px;">00:00</div>
-                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP__" style="height:30px;position:relative;top:7px;"> resend </button>
+                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP__" style="height:30px;position:relative;top:7px;"> Resend </button>
                 </div>
             </div>
 

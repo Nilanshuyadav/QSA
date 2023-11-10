@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "BuildNewQuizz";
+    ViewBag.Title = "BuildNewQuizzbyadmin";
     Layout = null;
 }
 
@@ -100,7 +100,7 @@
 
 
             $.ajax({
-                url: "/User/NotifyAdmin",
+                url: "/admin/NotifyAdminbyadmin",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({ newassigninfo: newassigninfo_, newassign: Questions }),
@@ -128,12 +128,15 @@
     }
 </style>
 
+
+
 <div class="container-fluid px-4">
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
-        <li class="breadcrumb-item"><a href="@Url.Action("Index", "User")">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Admin")">Dashboard</a></li>
         <li class="breadcrumb-item active">Build new Quizz</li>
     </ol>
+
 
     <form class="mt-6">
         <div id="assignmentinfobuildnewquizz">

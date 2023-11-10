@@ -81,86 +81,93 @@
 </style>
 
 
+<div class="container-fluid px-4">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "User")">Dashboard</a></li>
+        <li class="breadcrumb-item active">Build new Quizz</li>
+    </ol>
 
-<div class="containerGetAssignmentQuestions">
-    @*<span id="asInfo" style="color:black"></span>*@
-    @if (TempData["assignName"] != null && TempData["assignCategory"] != null && TempData["assignDifficulty"] != null)
-    {
-        <div class="mt-3">
-            <span style="color:black;"><b>Assignment Name:</b></span>
-            <span style="color:black">@TempData["assignName"]</span>
-            <span class="" style="color:black; margin-left:50px"><b>Category:</b></span>
-            <span style="color:black">@TempData["assignCategory"]</span>
-            <span style="color: black; margin-left: 50px"><b>Difficulty Level:</b></span>
-            <span style="color:black">@TempData["assignDifficulty"]</span>
-        </div>
-    }
-
-    @foreach (var item in Model)
-    {
-
-        <div class="card border-secondary mb-4 question mt-5" style="width:52rem">
-            <div class="d-flex justify-content-between align-items-center card-header bg-secondary text-white">
-                Q.@cnt
+    <div class="containerGetAssignmentQuestions">
+        @*<span id="asInfo" style="color:black"></span>*@
+        @if (TempData["assignName"] != null && TempData["assignCategory"] != null && TempData["assignDifficulty"] != null)
+        {
+            <div class="mt-3">
+                <span style="color:black;"><b>Assignment Name:</b></span>
+                <span style="color:black">@TempData["assignName"]</span>
+                <span class="" style="color:black; margin-left:50px"><b>Category:</b></span>
+                <span style="color:black">@TempData["assignCategory"]</span>
+                <span style="color: black; margin-left: 50px"><b>Difficulty Level:</b></span>
+                <span style="color:black">@TempData["assignDifficulty"]</span>
             </div>
+        }
 
-            <div class="card-body">
-                @{
-                    var id_q = item.Q_Id + "q";
-                }
-                <div style="display: flex; justify-content: space-between; ">
-                    <input value="@item.Q_Text" class="card-title text-dark mb-5" id=@id_q />
-                    <img src="~/AppFiles/Images/edit-solid.svg" style="width:20px;height:20px" />
+        @foreach (var item in Model)
+        {
+
+            <div class="card border-secondary mb-4 question mt-5" style="width:52rem">
+                <div class="d-flex justify-content-between align-items-center card-header bg-secondary text-white">
+                    Q.@cnt
                 </div>
 
-
-                @{var n = item.Options.Count;
-                }
-
-                <table class="table table-borderless">
-
-                    @for (var i = 0; i < n;)
-                    {
-
-
-                        <tr>
-                            @if (i < n)
-                            {
-                                <td>
-                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
-                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
-                                        <span contenteditable="true"> @item.Options[i++].Options</span>
-                                    </label>
-                                </td>
-                            }
-
-                            @if (i < n)
-                            {
-                                <td>
-                                    <label class="card-text text-dark" id=@item.Options[i].O_id>
-                                        <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
-                                        <span contenteditable="true"> @item.Options[i++].Options</span>
-                                    </label>
-                                </td>
-                            }
-
-                        </tr>
+                <div class="card-body">
+                    @{
+                        var id_q = item.Q_Id + "q";
                     }
-                </table>
+                    <div style="display: flex; justify-content: space-between; ">
+                        <input value="@item.Q_Text" class="card-title text-dark mb-5" id=@id_q />
+                        <img src="~/AppFiles/Images/edit-solid.svg" style="width:20px;height:20px" />
+                    </div>
+
+
+                    @{var n = item.Options.Count;
+                    }
+
+                    <table class="table table-borderless">
+
+                        @for (var i = 0; i < n;)
+                        {
+
+
+                            <tr>
+                                @if (i < n)
+                                {
+                                    <td>
+                                        <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                            <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                            <span contenteditable="true"> @item.Options[i++].Options</span>
+                                        </label>
+                                    </td>
+                                }
+
+                                @if (i < n)
+                                {
+                                    <td>
+                                        <label class="card-text text-dark" id=@item.Options[i].O_id>
+                                            <input type="radio" name=@item.Q_Id value=@item.Options[i].Marks>
+                                            <span contenteditable="true"> @item.Options[i++].Options</span>
+                                        </label>
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+                    </table>
+                </div>
             </div>
+
+            cnt = cnt + 1;
+        }
+
+        <div class="alert alert-danger " id="msgText" role="alert" style="width:30rem">
+            Something went wrong, Please try again
         </div>
+        <div class="alert alert-success" id="quizUpdated" role="alert">
+            Quiz has been Updated
+        </div>
+        <div class="containerbtn">
+            <input id="btngetassignmentquestionsuser" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Update">
+        </div>
+    </div>
 
-        cnt = cnt + 1;
-    }
-
-    <div class="alert alert-danger " id="msgText" role="alert" style="width:30rem">
-        Something went wrong, Please try again
-    </div>
-    <div class="alert alert-success" id="quizUpdated" role="alert">
-        Quiz has been Updated
-    </div>
-    <div class="containerbtn">
-        <input id="btngetassignmentquestionsuser" class="btn btn-primary btn-outline-info rounded-pill fw-bold text-white" value="Update">
-    </div>
 </div>
-

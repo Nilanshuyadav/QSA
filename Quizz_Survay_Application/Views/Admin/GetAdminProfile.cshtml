@@ -13,15 +13,13 @@
         $("#addquizz").click(function () {
 
             $.ajax({
-                url: '/User/BuildNewQuizz',
+                url: '/admin/BuildNewQuizzbyadmin',
                 type: "GET",
                 success: function (data) {
-                    /*$("#bodyadmin").html(data);*/
-
-                    alert("clicked");
+                    $("#bodyadmin").html(data);
                 },
                 error: function (error) {
-                    alert("Something wrong happened, plz try again later...");
+                    alert("Something wrong happened, Please try again later");
                 }
             });
         });

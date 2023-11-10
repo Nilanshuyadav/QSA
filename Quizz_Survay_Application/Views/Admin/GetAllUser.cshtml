@@ -153,74 +153,86 @@
 </script>
 
 
+<div id="bodyadmin">
 
-<div class="bodycontainer">
-    <table class="table table-hover align-middle mb-0 bg-white">
-        <thead class="bg-light">
-            <tr>
-                <th>#</th>
-                <th>UserName</th>
-                <th>Name</th>
-                <th>Role</th>
-                <th>LastLog</th>
-                <th>Action</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <p class="fw-normal mb-1">@cnt</p>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            @item.UserName
-                        </div>
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @if (item.Role == true)
-                        {
-                            <span class="badge rounded-pill bg-success bg-opacity-25 text-success">Admin</span>
-                        }
-                        else
-                        {
-                            <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">User</span>
-                        }
+    <div class="bodycontainer">
 
-                    </td>
-                    <td>
-                        @item.LastLog
-                    </td>
-                    <td>
-                        @if (item.Role == true)
-                        {
-                            <button type="button" class="btn changerole btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make User</button>
-                        }
-                        else
-                        {
-                            <button type = "button" class="btn changerole btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make Admin</button>
-                        }
-                    </td>
-                    <td>
-                        @if (item.disabled == true)
-                        {
-                            <button type="button" class="btn enabledisable btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Enable</button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn enabledisable btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Disable</button>
-                        }
-                    </td>
-                </tr>
+        <div class="container-fluid px-4">
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
 
-                cnt = cnt + 1;
-            }
-        </tbody>
-    </table>
 
+            <table class="table table-hover align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>#</th>
+                        <th>UserName</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>LastLog</th>
+                        <th>Action</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <p class="fw-normal mb-1">@cnt</p>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @item.UserName
+                                </div>
+                            </td>
+                            <td>
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @if (item.Role == true)
+                                {
+                                    <span class="badge rounded-pill bg-success bg-opacity-25 text-success">Admin</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">User</span>
+                                }
+
+                            </td>
+                            <td>
+                                @item.LastLog
+                            </td>
+                            <td>
+                                @if (item.Role == true)
+                                {
+                                    <button type="button" class="btn changerole btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make User</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn changerole btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Make Admin</button>
+                                }
+                            </td>
+                            <td>
+                                @if (item.disabled == true)
+                                {
+                                    <button type="button" class="btn enabledisable btn-success btn-outline-warning btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Enable</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn enabledisable btn-warning btn-outline-success btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" style="width:105px;">Disable</button>
+                                }
+                            </td>
+                        </tr>
+
+                        cnt = cnt + 1;
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
 </div>

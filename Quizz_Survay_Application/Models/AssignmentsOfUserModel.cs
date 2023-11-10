@@ -11,5 +11,6 @@ namespace Quizz_Survay_Application.Models
         public string As_Name { get; set;}
         public string As_Category { get; set;}
         public string As_Difficulty { get; set;}
+        public string PublishedStatus { get; set; }
     }
 }

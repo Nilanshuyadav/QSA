@@ -36,6 +36,8 @@
                 return false;
             }
 
+            $("#enteredotp").val("");
+
             return VerifyEmail();
         });
 
@@ -205,10 +207,6 @@
 
 </script>
 
-
-
-
-
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
@@ -233,7 +231,7 @@
                 <div class="col-md-10 d-flex">
                     <input class="form-control" id="enteredotp" placeholder="Enter OTP" />
                     <div id="timer_" class="btn btn-outline-info rounded-2 btn-sm ms-2" style="height:30px;position:relative;top:7px;">00:00</div>
-                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP" style="height:30px;position:relative;top:7px;"> resend </button>
+                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP" style="height:30px;position:relative;top:7px;"> Resend </button>
                 </div>
                 <p id="otperror" class="text-danger text-sm-start"></p>
             </div>

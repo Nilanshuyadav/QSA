@@ -117,5 +117,18 @@ namespace Quizz_Survay_Application.Controllers
         {
             Session.Abandon();
         }
+
+        public ActionResult BuildNewQuizzbyadmin()
+        {
+            return View();
+        }
+
+        public void NotifyAdminbyadmin(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel> newassign)
+        {
+            var CurrUser = (string)Session["CurrUser"];
+
+            repoObj.AddAssignment(newassigninfo, newassign, CurrUser);
+            return;
+        }
     }
 }
