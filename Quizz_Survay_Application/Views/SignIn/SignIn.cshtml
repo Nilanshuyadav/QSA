@@ -14,8 +14,22 @@
         var currUser;
 
         $("#otpcontainer").hide();
+        $(".resendOTP").hide();
+
+
 
         $("#btnemail").click(function () {
+            if (isBlocked) {
+                $("#blockedUser").show();
+                $("#loading").hide();
+                return false;
+            }
+
+            return VerifyEmail();
+            
+        });
+
+        $(".resendOTP").click(function () {
             if (isBlocked) {
                 $("#blockedUser").show();
                 $("#loading").hide();
@@ -32,10 +46,14 @@
         function VerifyOTP() {
             var EnteredOTP_ = $("#enteredotp").val();
 
+            if (!checkOTP(EnteredOTP_)) {
+                return false;
+            }
+
             $.ajax({
                 url: "/SignIn/Validate",
                 type: "GET",
-                data: { EnteredOTP: EnteredOTP_, Email: $("#enteremail").val().toLowerCase() },
+                data: { EnteredOTP: EnteredOTP_, Email: $("#enteremail").val().toLowerCase(), role: currUser.Role },
                 success: function (data) {
                     if (data == 1) {
                         if (!currUser.Role) {
@@ -71,6 +89,10 @@
         function VerifyEmail() {
             let EnteredEmail = $("#enteremail").val().toLowerCase();
 
+            if (!checkmail(EnteredEmail)) {
+                return false;
+            }
+
             var users = @Html.Raw(Json.Encode(Model));
             var found = false;
 
@@ -93,6 +115,14 @@
                                 $("#loading").hide();
                                 $("#btnemail").hide();
                                 $("#otpcontainer").show();
+
+                                timeLeft_ = 60;
+                                $("#timer_").show();
+                                $(".resendOTP").hide();
+                                updateTimer_();
+
+                                timerInterval_ = setInterval(updateTimer_, 1000);
+
                             }
                         },
                         error: function (error) {
@@ -113,7 +143,63 @@
             return false;
         }
 
+        var timerInterval_
+        var timerElement_ = $("#timer_");
+        var timeLeft_;
 
+        function updateTimer_() {
+            var minutes_ = Math.floor(timeLeft_ / 60);
+            var seconds_ = timeLeft_ % 60;
+            var formattedTime_ = (minutes_ < 10 ? "0" : "") + minutes_ + ":" + (seconds_ < 10 ? "0" : "") + seconds_;
+            timerElement_.text(formattedTime_);
+            timeLeft_--;
+
+            if (timeLeft_ < 0) {
+                clearInterval(timerInterval_);
+                timerElement_.hide();
+                $(".resendOTP").show();
+            }
+        }
+
+
+        $("#mailerror").hide();
+        $("#otperror").hide();
+
+        $(document).on("keyup", "#enteremail", function () {
+            return checkmail($(this).val().toLowerCase());
+        });
+
+        function checkmail(inputvalues) {
+            var regex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+            if (!regex.test(inputvalues)) {
+                $("#mailerror").show();
+                $("#mailerror").html("* please enter correct Email")
+            }
+            else {
+                $("#mailerror").hide();
+            }
+
+            return regex.test(inputvalues);
+        }
+
+
+
+        $(document).on("keyup", "#enteredotp", function () {
+            return checkOTP($(this).val());
+        });
+
+        function checkOTP(inputvalues_) {
+            var regex = /^\d{6,6}$/;
+            if (!regex.test(inputvalues_)) {
+                $("#otperror").show();
+                $("#otperror").html("* please enter 6 digit OTP")
+            }
+            else {
+                $("#otperror").hide();
+            }
+
+            return regex.test(inputvalues_);
+        }
 
     });
 
@@ -132,21 +218,24 @@
                 <div class="col-md-10">
                     <p>Please login to your Account </p>
                     <input class="form-control" id="enteremail" placeholder="Enter Email" />
+                    <p id="mailerror" class="text-danger text-sm-start"></p>
                 </div>
             </div>
 
             <div class="d-grid gap-1 col-10 ml-2 mt-2 p-2">
-                <button class="btn btn-success btn-sm" type="button" id="btnemail">Login</button>
-
+                <button class="btn btn-success btn-sm" type="button" id="btnemail">Generate OTP</button>
             </div>
         </div>
 
         <div id="otpcontainer">
             <div>
 
-                <div class="col-md-10">
+                <div class="col-md-10 d-flex">
                     <input class="form-control" id="enteredotp" placeholder="Enter OTP" />
+                    <div id="timer_" class="btn btn-outline-info rounded-2 btn-sm ms-2" style="height:30px;position:relative;top:7px;">00:00</div>
+                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP" style="height:30px;position:relative;top:7px;"> resend </button>
                 </div>
+                <p id="otperror" class="text-danger text-sm-start"></p>
             </div>
 
             <div class="form-group">

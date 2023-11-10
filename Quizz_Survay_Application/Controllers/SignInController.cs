@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Dapper;
@@ -118,13 +119,25 @@ namespace Quizz_Survay_Application.Controllers
             return otp;
         }
 
-        public int Validate(string EnteredOTP, string Email)
+        public int Validate(string EnteredOTP, string Email, bool role)
         {
             var result = repoObj.ValidateOTP(EnteredOTP, Email);
 
             if(result == 1)
             {
+
+                if (role)
+                {
+                    Session["roletype"] = "Admin";
+                }
+                else
+                {
+                    Session["roletype"] = "User";
+                }
+
                 Session["CurrUser"] = Email;
+
+
             }
 
             return result;

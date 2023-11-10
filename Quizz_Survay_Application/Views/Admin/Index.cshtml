@@ -9,8 +9,21 @@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
         $(".logoutbtn").show();
-        $(".searchbtn").show();
+        $(".searchbtn").hide();
         $(".loginbtn").hide();
+        $(".profilebtn").hide();
+
+        $(document).on("click", ".logoutbtn", function () {
+            $.ajax({
+                url: "/admin/EndSession",
+                success: function () {
+                    location.href = "/Signin/Index";
+                },
+                error: function () {
+                    alert("error on logging out, plz try again");
+                }
+            });
+        });
 
     </script>
 

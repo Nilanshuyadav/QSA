@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Home Page";
-
     int cnt = 1;
 }
 
@@ -108,53 +107,71 @@
     </section>
     <script>
 
-$(document).ready(function () {
-    $(".searchbtn").hide();
-    $(".loginbtn").show();
-    $(".logoutbtn").hide();
-    $(".notifybtn").hide();
+    $(document).ready(function () {
+        $(".searchbtn").hide();
+        $(".loginbtn").hide();
+        $(".logoutbtn").hide();
+        $(".notifybtn").hide();
+        $(".profilebtn").hide();
 
-    var assign = @Html.Raw(Json.Encode(Model));
+        var curruser = @Html.Raw(Json.Encode(Session["CurrUser"])); 
 
-    $(".btnhomeindex").click(function () {
-        var id = $(this).attr('id');
-        var ref = "/home/GetAssignmentQuestions/" + id;
+        if (curruser != null) {
+            $(".profilebtn").show();
+        }
+        else {
+            $(".loginbtn").show();
+        }
 
-        location.href = ref;
-    });
+        var assign = @Html.Raw(Json.Encode(Model));
 
+        $(".btnhomeindex").click(function () {
+            var id = $(this).attr('id');
+            var ref = "/home/GetAssignmentQuestions/" + id;
 
-    $(document).on("keyup", ".searchinput", function () {
-        var searched_text = $(".searchinput").val().toLowerCase();
-
-        $("tbody tr").hide();
-
-        $.each(assign, function (index, item) {
-            if (item.As_Name.toLowerCase().indexOf(searched_text) != -1) {
-                $("#" + item.As_Id).closest('tr').show();
-            }
+            location.href = ref;
         });
 
-        $('html, body').animate({
-            scrollTop: $("#assignmentList").offset().top
-        }, 0);
+        $(document).on("click", ".profilebtn", function () {
+            var ref = "/User/Index/";
 
-        return false;
+            location.href = ref;
+            alert("Redirecting...");
+        });
+
+        $(document).on("keyup", ".searchinput", function () {
+            var searched_text = $(".searchinput").val().toLowerCase();
+
+            $("tbody tr").hide();
+
+            $.each(assign, function (index, item) {
+                if (item.As_Name.toLowerCase().indexOf(searched_text) != -1) {
+                    $("#" + item.As_Id).closest('tr').show();
+                }
+            });
+
+            $('html, body').animate({
+                scrollTop: $("#assignmentList").offset().top
+            }, 0);
+
+            return false;
+        });
+
+        $("#startQuizbtn").click(function () {
+
+            $('html, body').animate({
+                scrollTop: $("#assignmentList").offset().top
+            }, 1000);
+        });
+
+        $(".loginbtn").click(function () {
+            location.href = "/SignIn/Index";
+            alert("redirecting...")
+        });
+
+        localStorage.removeItem("quizStartTime");
+        localStorage.removeItem('completed');
     });
-
-    $("#startQuizbtn").click(function () {
-
-        $('html, body').animate({
-            scrollTop: $("#assignmentList").offset().top
-        }, 1000);
-    });
-
-    $(".loginbtn").click(function () {
-
-        location.href = "/SignIn/Index";
-        alert("redirecting...");
-    });
-});
 
     </script>
 

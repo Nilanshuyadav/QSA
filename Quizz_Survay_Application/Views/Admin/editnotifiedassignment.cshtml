@@ -20,7 +20,7 @@
                 var q_id = item.Q_Id;
                 var st = $('input[name="' + q_id + '"]:checked').parent().attr('id');
 
-                item.Q_Text = $("#" + q_id + "q").html();
+                item.Q_Text = $("#" + q_id + "q").val();
                 item.Ans_Op_Id = st;
 
                 $.each(item.Options, function (ind, itm) {

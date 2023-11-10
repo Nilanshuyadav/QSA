@@ -5,29 +5,40 @@ using System.Web;
 using System.Web.Mvc;
 using Quizz_Survay_Application.Models;
 using Quizz_Survay_Application.Repository;
+using SignIn.ActionFilter;
 
 namespace Quizz_Survay_Application.Controllers
 {
+    [UserAuthenticationFilter]
     public class AdminController : Controller
     {
         IQSARepository repoObj;
-        string CurrUser;
+        /*string CurrUser;*/
 
         public AdminController()
         {
             repoObj = new QSARepository();
-            CurrUser = "vpandey2606@gmail.com";
+            /*CurrUser = "yadavabishek7011@gmail.com";*/
         }
 
         // GET: Admin
         public ActionResult Index()
         {
+            if ((string)Session["roletype"] == "User")
+            {
+                return RedirectToAction("Index", "User");
+            }
+
+            var CurrUser = (string)Session["CurrUser"];
+
             repoObj.UpdateLog(CurrUser);
             return View();
         }
 
         public ActionResult GetAdminProfile()
         {
+            var CurrUser = (string)Session["CurrUser"];
+
             return View(repoObj.GetUser(CurrUser));
         }
 
@@ -100,6 +111,11 @@ namespace Quizz_Survay_Application.Controllers
         {
             repoObj.DeleteAssignment(id);
             return;
+        }
+
+        public void EndSession()
+        {
+            Session.Abandon();
         }
     }
 }

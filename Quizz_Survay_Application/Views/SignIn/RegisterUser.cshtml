@@ -12,6 +12,8 @@
 
     $(document).ready(function () {
         $("#otpcontainerregister").hide();
+        $(".resendOTP__").hide();
+
         let SentOTP = "";
         var isBlocked = false;
 
@@ -26,6 +28,19 @@
 
             return verifyEmailregister();
         });
+
+        $(".resendOTP__").click(function () {
+            $("#loading").show();
+
+            if (isBlocked) {
+                $("#blockedUserR").show();
+                $("#loading").hide();
+                return false;
+            }
+
+            return verifyEmailregister();
+        });
+
 
         $("#btnotpregister").click(function () {
             return verifyOTPregister();
@@ -71,6 +86,10 @@
 
         function verifyEmailregister() {
 
+            if (!checkmail_($("#UserName").val().toLowerCase())) {
+                return false;
+            }
+
             $.ajax({
                 url: "/SignIn/ValidateEmail",
                 type: "POST",
@@ -81,6 +100,13 @@
                         /*  $("#btnregister").attr("disabled", true);*/
                         $("#btnregister").hide();
                         $("#loading").hide();
+
+                        timeLeft__ = 60;
+                        $("#timer__").show();
+                        $(".resendOTP__").hide();
+                        updateTimer__();
+
+                        timerInterval__ = setInterval(updateTimer__, 1000);
                     }
                     else if (data == 0) {
                         $("#blockedUserR").show();
@@ -103,6 +129,61 @@
 
             return false;
         };
+
+        var timerInterval__
+        var timerElement__ = $("#timer__");
+        var timeLeft__;
+
+        function updateTimer__() {
+            var minutes__ = Math.floor(timeLeft__ / 60);
+            var seconds__ = timeLeft__ % 60;
+            var formattedTime__ = (minutes__ < 10 ? "0" : "") + minutes__ + ":" + (seconds__ < 10 ? "0" : "") + seconds__;
+            timerElement__.text(formattedTime__);
+            timeLeft__--;
+
+            if (timeLeft__ < 0) {
+                clearInterval(timerInterval__);
+                timerElement__.hide();
+                $(".resendOTP__").show();
+            }
+        }
+
+
+
+        $(document).on("keyup", "#UserName", function () {
+            return checkmail_($(this).val().toLowerCase());
+        });
+
+        $(document).on("keyup", "#LastName", function () {
+            return checklastname($(this).val().toLowerCase());
+        });
+
+        function checkmail_(inputvalues) {
+            var regex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+            if (!regex.test(inputvalues)) {
+                $("#mailerror_").show();
+                $("#mailerror_").html("* please enter correct Email")
+            }
+            else {
+                $("#mailerror_").hide();
+            }
+
+            return regex.test(inputvalues);
+        }
+
+        function checklastname(inputvalues) {
+            var regex = /[a-z]/;
+            if (!regex.test(inputvalues)) {
+                $("#lastnameerror_").show();
+                $("#lastnameerror_").html("* please enter correct Name")
+            }
+            else {
+                $("#lastnameerror_").hide();
+            }
+
+            return regex.test(inputvalues);
+        }
+
     });
 
 </script>
@@ -130,39 +211,45 @@
         <div class="form-group m-2">
             <div class="col-md-12">
                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Last Name" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                <p id="lastnameerror_" class="text-danger text-sm-start"></p>
             </div>
         </div>
 
         <div class="form-group m-2">
             <div class="col-md-12">
                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Email" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                <p id="mailerror_" class="text-danger text-sm-start"></p>
             </div>
-        </div>
-
-        <div id="otpcontainerregister">
-            <div class="m-2">
-                <div class="col-md-12">
-                    <input class="form-control" id="enteredotpregister" placeholder="Enter OTP" />
-                    <div class="d-grid gap-1 col-11 ml-2 mt-2 p-2">
-                        <button class="btn btn-success btn-sm" type="button" id="btnotpregister">Register</button>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
 
 
         <div class="form-group">
 
             <div class="d-grid gap-1 col-11 ml-2 mt-2 p-2">
-                <button class="btn btn-success btn-sm" type="button" id="btnregister">Register</button>
-
+                <button class="btn btn-success btn-sm" type="button" id="btnregister">Generate OTP</button>
             </div>
 
         </div>
+
+        <div id="otpcontainerregister">
+            <div class="m-2">
+                <div class="col-md-12 d-flex">
+                    <input class="form-control" id="enteredotpregister" placeholder="Enter OTP" />
+                    <div id="timer__" class="btn btn-outline-info rounded-2 btn-sm ms-2" style="height:30px;position:relative;top:7px;">00:00</div>
+                    <button class="btn btn-outline-info rounded-2 btn-sm ms-2 resendOTP__" style="height:30px;position:relative;top:7px;"> resend </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="d-grid gap-1 col-11 ml-2 mt-2 p-2">
+                    <button class="btn btn-success btn-sm" type="button" id="btnotpregister">Register</button>
+
+                </div>
+
+            </div>
+        </div>
+
+
         <div class="alert alert-danger" id="errorMsg" role="alert">
             Something went wrong, Please try again
         </div>

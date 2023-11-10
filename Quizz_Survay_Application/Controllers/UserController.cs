@@ -5,24 +5,31 @@ using System.Web;
 using System.Web.Mvc;
 using Quizz_Survay_Application.Models;
 using Quizz_Survay_Application.Repository;
+using SignIn.ActionFilter;
 
 namespace Quizz_Survay_Application.Controllers
 {
+    [UserAuthenticationFilter]
     public class UserController : Controller
     {
         IQSARepository repoObj;
-        string CurrUser;
+        /*string CurrUser;*/
 
         public UserController()
         {
             repoObj = new QSARepository();
-            CurrUser = "vpandey2606@gmail.com";
+            /*CurrUser = "yadavnilanshu7011@gmail.com";*/
         }
 
         // GET: User
         public ActionResult Index()
         {
-            /*var CurrUser = (string)Session["CurrUser"];*/
+            if ((string)Session["roletype"] == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            var CurrUser = (string)Session["CurrUser"];
 
             repoObj.UpdateLog(CurrUser);
             return View();
@@ -30,14 +37,14 @@ namespace Quizz_Survay_Application.Controllers
 
         public ActionResult GetUserProfile()
         {
-            /*var CurrUser = (string)Session["CurrUser"];*/
+            var CurrUser = (string)Session["CurrUser"];
 
             return View(repoObj.GetUser(CurrUser));
         }
 
         public ActionResult GetAssignmetsOfUser()
         {
-            /*var CurrUser = (string)Session["CurrUser"];*/
+            var CurrUser = (string)Session["CurrUser"];
 
             return View(repoObj.GetAssignmentsOfUser(CurrUser));
         }
@@ -78,6 +85,8 @@ namespace Quizz_Survay_Application.Controllers
 
         public void NotifyAdmin(AssignmentsOfUserModel newassigninfo, IEnumerable<QuestionModel>  newassign)
         {
+            var CurrUser = (string)Session["CurrUser"];
+
             repoObj.AddAssignment(newassigninfo, newassign, CurrUser);
             return;
         }
@@ -87,6 +96,11 @@ namespace Quizz_Survay_Application.Controllers
         {
             repoObj.DeleteAssignment(id);
             return;
+        }
+
+        public void EndSession()
+        {
+            Session.Abandon();
         }
 
     }

@@ -56,9 +56,14 @@
             localStorage.removeItem("quizStartTime");
             clearInterval(timerInterval);
 
-            alert("your score is : " + score);
-            /* toastr.success("Your Score is : " + score);*/
-           /* toastr.success('Success',{timeOut:4000});*/
+            $("#scoreModal").modal("show");
+            $("#scoreValue").text(score);
+
+            $("#closebtn").click(function () {
+                $("#scoreModal").modal("hide");
+
+            });
+
 
 
             $(':radio:not(:checked)').attr('disabled', true);
@@ -194,26 +199,19 @@
     </div>
 
 
-    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>*@
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Congratulation!!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="scoreModalLabel">Congratulations!</h5>
+
                 </div>
                 <div class="modal-body">
-                    Your Score is 
+                    <p>Your score is: <span id="scoreValue"></span></p>
+                    <p>Congratulations on completing the assignment!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
-                    
+                    <button type="button" id="closebtn" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

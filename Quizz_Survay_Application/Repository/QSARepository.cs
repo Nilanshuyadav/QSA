@@ -56,7 +56,7 @@ namespace Quizz_Survay_Application.Repository
         void IQSARepository.AddUser(RegisterModel user)
         {
             DynamicParameters dp = new DynamicParameters();
-            dp.Add("@@FirstName", user.FirstName);
+            dp.Add("@FirstName", user.FirstName);
             dp.Add("@LastName", user.LastName);
             dp.Add("@UserName", user.UserName);
             dp.Add("@Role", false);

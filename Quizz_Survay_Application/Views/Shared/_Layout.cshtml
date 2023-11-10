@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-   
+
     <script src="https://kit.fontawesome.com/c4acbb682e.js" crossorigin="anonymous"></script>
 
 
@@ -46,19 +46,19 @@
 
     <div id="navbar">
         <div id="navFirstDiv">
-            <h3> @Html.ActionLink("Quizz Application", "Index", "SignIn", new { area = "" }, new { @class = "navbar-brand" })</h3>
+            <h3> @Html.ActionLink("Quizz Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</h3>
         </div>
         <div id="navSecondDiv">
             <form class="form-inline" style="display:inline-flex">
                 @*<span class="searchbtn">
-                        <input class="form-control rounded-3 " type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control rounded-3 " type="search" placeholder="Search" aria-label="Search">
 
-                        <span>
-                            <button class="btn btn-secondary btn-sm " type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </span>
-                    </span>*@
+            <span>
+                <button class="btn btn-secondary btn-sm " type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </span>
+        </span>*@
 
                 <div class="input-group input-group-sm searchbtn">
                     <input type="text" class="form-control rounded-1" placeholder="Search Assignment">
@@ -74,6 +74,7 @@
 
                     </div>
                 </button>
+                <button class="btn btn-secondary profilebtn"><i class="fa-solid fa-user"></i></button>
                 <button class="btn btn-danger logoutbtn">Logout</button>
                 <button class="btn btn-info loginbtn">Login</button>
             </form>

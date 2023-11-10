@@ -117,9 +117,9 @@
                         alert("done...");
 
                         curr_role.html('User');
-                        $(".changerole").html("Make Admin");
-                        $(".chanerole").removeClass('btn-success btn-outline-warning');
-                        $(".chanerole").addClass('btn-warning btn-outline-success');
+                        $(curr).html("Make Admin");
+                        $(curr).removeClass('btn-success btn-outline-warning');
+                        $(curr).addClass('btn-warning btn-outline-success');
                         curr_role.removeClass('bg-success text-success');
                         curr_role.addClass('bg-warning text-warning');
                     },
@@ -137,9 +137,9 @@
                         alert("done...");
 
                         curr_role.html('Admin');
-                        $(".changerole").html("Make User");
-                        $(".chanerole").removeClass('btn-warning btn-outline-success');
-                        $(".chanerole").addClass('btn-success btn-outline-warning');
+                        $(curr).html("Make User");
+                        $(curr).removeClass('btn-warning btn-outline-success');
+                        $(curr).addClass('btn-success btn-outline-warning');
                         curr_role.removeClass('bg-warning text-warning');
                         curr_role.addClass('bg-success text-success')
                     },

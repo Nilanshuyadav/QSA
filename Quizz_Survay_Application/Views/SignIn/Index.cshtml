@@ -5,13 +5,16 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
+
     $(document).ready(function () {
-        setTimeout(function () { }, 10000);
+
+        ready = false;
 
         $(".loginbtn").hide();
         $(".logoutbtn").hide();
         $(".searchbtn").hide();
         $(".notifybtn").hide();
+        $(".profilebtn").hide();
 
         $("#registerUser").hide();
         $("#loading").hide();
