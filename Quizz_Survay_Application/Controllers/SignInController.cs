@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -15,12 +16,16 @@ namespace Quizz_Survay_Application.Controllers
 {
     public class SignInController : Controller
     {
-        IQSARepository repoObj=new QSARepository();
+        private readonly IQSARepository repoObj;
 
         public SignInController()
+        {}
+
+        public SignInController(IQSARepository _repoObj)
         {
-            repoObj = new QSARepository();
+            repoObj = _repoObj;
         }
+
 
         // GET: SignIn
         public ActionResult Index()
@@ -30,7 +35,19 @@ namespace Quizz_Survay_Application.Controllers
 
         public ActionResult SignIn()
         {
-           return View(repoObj.GetAllUserSignIn());
+            try
+            {
+                var users = repoObj.GetAllUserSignIn();
+                return View(users);
+            }
+            catch(SqlException e)
+            {
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(500, "Error is " + ex.Message);
+            }
         }
 
         [HttpGet]
@@ -47,6 +64,7 @@ namespace Quizz_Survay_Application.Controllers
             repoObj.AddUser(user);
 
             Session["CurrUser"] = user.UserName;
+            Session["roletype"] = "User";
 
             return RedirectToAction("Index", "User");
         }
@@ -96,7 +114,7 @@ namespace Quizz_Survay_Application.Controllers
             smtp.Port = 587;
             smtp.EnableSsl = true;
 
-            NetworkCredential nc = new NetworkCredential("nilanshu08@gmail.com", "iwxs wagg qcfy lnqi");
+            NetworkCredential nc = new NetworkCredential("nilanshu08@gmail.com", "lxkd qvvh jhtx xgqs");
 
             smtp.Credentials = nc;
             smtp.Send(mailMessage);

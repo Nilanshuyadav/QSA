@@ -17,9 +17,15 @@ namespace Quizz_Survay_Application.Controllers
 
         public AdminController()
         {
-            repoObj = new QSARepository();
             /*CurrUser = "yadavabishek7011@gmail.com";*/
         }
+
+        public AdminController(IQSARepository _repoObj)
+        {
+            repoObj = _repoObj;
+        }
+
+
 
         // GET: Admin
         public ActionResult Index()

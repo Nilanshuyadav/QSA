@@ -63,46 +63,54 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @if (Model == null)
                 {
-                    <tr>
-                        <td>
-                            <p class="fw-normal mb-1">@cnt</p>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
-                            </div>
-                        </td>
-                        <td>
-                            @if (item.As_Difficulty == "Easy")
-                            {
-                                <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                            }
-                            else if (item.As_Difficulty == "Medium")
-                            {
-                                <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                            }
-                            else
-                            {
-                                <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
-                            }
 
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.As_Category)
-                        </td>
-                        <td>
-                            <button type="button" class="btn btnhomeindex btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
-                                Start
-                            </button>
-                        </td>
-                    </tr>
+                    @Html.Partial("_ErrorForSQL")
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <p class="fw-normal mb-1">@cnt</p>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    @Html.DisplayFor(modelItem => item.As_Name, new { @class = "fw-bold" })
+                                </div>
+                            </td>
+                            <td>
+                                @if (item.As_Difficulty == "Easy")
+                                {
+                                    <span class="badge rounded-pill bg-success bg-opacity-25 text-success">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                                }
+                                else if (item.As_Difficulty == "Medium")
+                                {
+                                    <span class="badge rounded-pill bg-warning bg-opacity-25 text-warning">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-danger bg-opacity-25 text-danger">@Html.DisplayFor(modelItem => item.As_Difficulty)</span>
+                                }
 
-                    cnt = cnt + 1;
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.As_Category)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btnhomeindex btn-primary btn-outline-info btn-sm rounded-pill fw-bold text-white" data-mdb-ripple-color="dark" id=@item.As_Id>
+                                    Start
+                                </button>
+                            </td>
+                        </tr>
+
+                        cnt = cnt + 1;
+                    }
                 }
             </tbody>
-        </table>
+            </table>
 
     </section>
     <script>
@@ -132,13 +140,13 @@
             location.href = ref;
         });
 
-        $(document).on("keyup", ".searchinput", function () {
+        $("#assignmentList").on("keyup", ".searchinput", function () {
             var searched_text = $(".searchinput").val().toLowerCase();
 
             $("tbody tr").hide();
 
             $.each(assign, function (index, item) {
-                if (item.As_Name.toLowerCase().indexOf(searched_text) != -1) {
+                if (item.As_Name.toLowerCase().indexOf(searched_text) != -1 || item.As_Category.toLowerCase().indexOf(searched_text) != -1 || item.As_Difficulty.toLowerCase().indexOf(searched_text) != -1) {
                     $("#" + item.As_Id).closest('tr').show();
                 }
             });

@@ -17,7 +17,12 @@ namespace Quizz_Survay_Application.Controllers
 
         public UserController()
         {
-            repoObj = new QSARepository();
+            /*CurrUser = "yadavnilanshu7011@gmail.com";*/
+        }
+
+        public UserController(IQSARepository _repoObj)
+        {
+            repoObj = _repoObj;
             /*CurrUser = "yadavnilanshu7011@gmail.com";*/
         }
 

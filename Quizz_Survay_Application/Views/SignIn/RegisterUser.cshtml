@@ -18,7 +18,6 @@
         var isBlocked = false;
 
         $("#btnregister").click(function () {
-            $("#loading").show();
 
             if (isBlocked) {
                 $("#blockedUserR").show();
@@ -89,6 +88,8 @@
             if (!checkmail_($("#UserName").val().toLowerCase())) {
                 return false;
             }
+
+            $("#loading").show();
 
             $.ajax({
                 url: "/SignIn/ValidateEmail",

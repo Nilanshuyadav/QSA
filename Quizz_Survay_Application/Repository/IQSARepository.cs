@@ -8,7 +8,7 @@ using Quizz_Survay_Application.Models;
 
 namespace Quizz_Survay_Application.Repository
 {
-    internal interface IQSARepository
+    public interface IQSARepository
     {
         void AddUser(RegisterModel user);
         IEnumerable<SignInModel> GetAllUserSignIn();
